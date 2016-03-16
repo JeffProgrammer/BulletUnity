@@ -28,7 +28,7 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/bullet" Bullet)
 
 # Includes for main project
 set (BULLETPLUGIN_INCLUDEDIR
-	source
+	src
 	thirdparty/bullet
 	thirdparty/bullet/src
 )
