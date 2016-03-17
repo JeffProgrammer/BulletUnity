@@ -48,7 +48,6 @@ extern "C" {
 		static_cast<PhysicsEngine*>(physicsEngine)->setWorldGravity(btVector3(gravity[0], gravity[1], gravity[2]));
 	}
 
-
 	/**
 	 * Destroys a physics world.
 	 * @param [IN]  physicsEngine The physics engine instance pointer.
