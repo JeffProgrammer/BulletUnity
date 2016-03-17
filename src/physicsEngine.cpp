@@ -41,3 +41,8 @@ void PhysicsEngine::simulate(const double &dt) {
 		}
 	}
 }
+
+void PhysicsEngine::setWorldGravity(const btVector3 &gravity) {
+	mWorldGravity = gravity;
+	mWorld->setGravity(gravity);
+}

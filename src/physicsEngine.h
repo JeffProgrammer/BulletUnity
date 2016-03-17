@@ -27,6 +27,21 @@ public:
 	 */
 	void simulate(const double &dt);
 
+	/**
+	 * Sets the world's gravity.
+	 * @param gravity The gravity direction and magnitude for all dynamic objects.
+	 */
+	void setWorldGravity(const btVector3 &gravity);
+
+	/**
+	 * Get's the world's gravity.
+	 * @return a 3-dimentional vector containing the direction and magnitude of
+	 *  the world's gravity.
+	 */
+	inline btVector3 getWorldGravity() const {
+		return mWorldGravity;
+	}
+
 private:
 	/**
 	 * The world object that simulates the physics.
