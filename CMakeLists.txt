@@ -41,6 +41,8 @@ set (BULLETPLUGIN_SRC
 	src/physicsInterior.cpp
 	src/physicsInterior.h
 	src/physicsInterior_api.h
+	src/physicsSphere.h
+	src/physicsSphere_api.h
 )
 
 set (BULLETPLUGIN_LIBRARIES
