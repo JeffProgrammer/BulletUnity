@@ -39,6 +39,10 @@ public:
 		return mScale;
 	}
 
+	inline btRigidBody* getRigidBody() const {
+		return mActor;
+	}
+
 private:
 	btRigidBody *mActor;
 	btVector3 mScale;
