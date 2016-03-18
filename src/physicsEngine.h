@@ -27,7 +27,7 @@ public:
 	 * Simulates the physics engine.
 	 * @param dt The delta, in seconds, from the last frame to the current frame.
 	 */
-	void simulate(const double &dt);
+	void simulate(const float &dt);
 
 	/**
 	 * Sets the world's gravity.

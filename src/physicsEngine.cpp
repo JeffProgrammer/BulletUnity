@@ -28,7 +28,7 @@ PhysicsEngine::~PhysicsEngine() {
 	delete mDispatcher;
 }
 
-void PhysicsEngine::simulate(const double &dt) {
+void PhysicsEngine::simulate(const float &dt) {
 	if (mRunning) {
 		mAccumulator += dt;
 		while (mAccumulator > PHYSICS_TICK) {

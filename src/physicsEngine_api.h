@@ -35,7 +35,7 @@ extern "C" {
 	 * @param [IN] dt The time delta in seconds from the last frame to the current
 	 *  frame.
 	 */
-	void physics_engine_simulate(void *physicsEngine, double dt) {
+	void physics_engine_simulate(void *physicsEngine, float dt) {
 		static_cast<PhysicsEngine*>(physicsEngine)->simulate(dt);
 	}
 
@@ -68,7 +68,7 @@ extern "C" {
 	 * @param [IN] physicsEngine The physics engine instance pointer.
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 */
-	void physics_engine_add_interior(void *physicsEngine, void *physicsInterior) {
+	void physics_engine_add_static_interior(void *physicsEngine, void *physicsInterior) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		engine->addPhysicsInterior(static_cast<PhysicsInterior*>(physicsInterior));
 	}
