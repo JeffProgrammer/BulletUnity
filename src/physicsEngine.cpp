@@ -5,6 +5,7 @@
 //------------------------------------------------------------------------------
 
 #include "physicsEngine.h"
+#include "physicsInterior.h"
 
 PhysicsEngine::PhysicsEngine() {
 	mAccumulator = 0.0;
@@ -45,4 +46,8 @@ void PhysicsEngine::simulate(const double &dt) {
 void PhysicsEngine::setWorldGravity(const btVector3 &gravity) {
 	mWorldGravity = gravity;
 	mWorld->setGravity(gravity);
+}
+
+void PhysicsEngine::addPhysicsInterior(PhysicsInterior *interior) {
+
 }

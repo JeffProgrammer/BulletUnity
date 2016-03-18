@@ -16,6 +16,8 @@
  */
 #define PHYSICS_TICK 0.016666666
 
+class PhysicsInterior;
+
 class PhysicsEngine {
 public:
 	PhysicsEngine();
@@ -41,6 +43,12 @@ public:
 	inline btVector3 getWorldGravity() const {
 		return mWorldGravity;
 	}
+
+	/**
+	 * Adds an inteiror object into the physics world.
+	 * @param interior The physics interior collision object.
+	 */
+	void addPhysicsInterior(PhysicsInterior *interior);
 
 private:
 	/**

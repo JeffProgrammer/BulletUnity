@@ -8,6 +8,7 @@
 #define _BULLETPLUGIN_PHYSICSENGINE_API_H_
 
 #include "physicsEngine.h"
+#include "physicsInterior.h"
 
 extern "C" {
 	/**
@@ -60,6 +61,16 @@ extern "C" {
 		gravity[0] = vec.x;
 		gravity[1] = vec.y;
 		gravity[2] = vec.z;
+	}
+
+	/**
+	 * Adds an interior into the physics engine.
+	 * @param [IN] physicsEngine The physics engine instance pointer.
+	 * @param [IN] physicsInterior The physics interior instance pointer.
+	 */
+	void physics_engine_add_interior(void *physicsEngine, void *physicsInterior) {
+		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
+		engine->addPhysicsInterior(static_cast<PhysicsInterior*>(physicsInterior));
 	}
 }
 
