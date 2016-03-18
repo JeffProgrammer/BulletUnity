@@ -19,7 +19,7 @@ extern "C" {
 	}
 
 	/**
-	 * Destroys a physics inteiror.
+	 * Destroys a physics interior.
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 */
 	void physics_engine_destroy(void *physicsInterior) {
@@ -29,7 +29,7 @@ extern "C" {
 	}
 
 	/**
-	 * Destroys a physics world.
+	 * Adds a triangle mesh to the physics world.
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 * @param [IN] pointArray the array of vertices [3 floats per vertex].
 	 * @param [IN] size The amount of items within pointArray.
@@ -99,7 +99,7 @@ extern "C" {
 	 * @param [OUT] scale The scale vector (3 floats).
 	 */
 	void physics_interior_get_scale(void *physicsInterior, float *scale) {
-		const auto &scl = static_cast<PhysicsInterior*>(physicsInterior)->getPosition();
+		const auto &scl = static_cast<PhysicsInterior*>(physicsInterior)->getScale();
 		scale[0] = scl.x;
 		scale[1] = scl.y;
 		scale[2] = scl.z;
