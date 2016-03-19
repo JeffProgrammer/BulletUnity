@@ -107,4 +107,4 @@ protected:
 	float mRestitution;
 };
 
-#endif // _BULLETPLUGIN_PHYSICSINTERIOR_H_
+#endif // _BULLETPLUGIN_PHYSICSBODY_H_
