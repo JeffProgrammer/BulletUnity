@@ -6,15 +6,12 @@
 
 #include "physicsSphere.h"
 
-PhysicsSphere::PhysicsSphere() {
-	mActor = nullptr;
+PhysicsSphere::PhysicsSphere() : PhysicsBody() {
 	mRadius = 0.5f;
-	mRestitution = 1.0f;
-	mFriction = 1.0f;
 }
 
 PhysicsSphere::~PhysicsSphere() {
-	delete mActor;
+
 }
 
 void PhysicsSphere::addActor() {
@@ -44,27 +41,11 @@ void PhysicsSphere::addActor() {
 	mActor->setContactProcessingThreshold(0.0f);
 }
 
-void PhysicsSphere::setPosition(const btVector3 &pos) {
-	btTransform &trans = mActor->getWorldTransform();
-	trans.setOrigin(pos);
-	mActor->setWorldTransform(trans);
-}
-
-void PhysicsSphere::setRotation(const btQuaternion &rot) {
-	btTransform &trans = mActor->getWorldTransform();
-	trans.setRotation(rot);
-	mActor->setWorldTransform(trans);
-}
-
 void PhysicsSphere::setRadius(const float radius) {
 	static_cast<btSphereShape*>(mActor->getCollisionShape())->setUnscaledRadius(radius);
 	mActor->setCcdSweptSphereRadius(mRadius / 10.0f);
 }
 
-btVector3 PhysicsSphere::getPosition() const {
-	return mActor->getWorldTransform().getOrigin();
-}
-
-btQuaternion PhysicsSphere::getRotation() const {
-	return mActor->getWorldTransform().getRotation();
+float PhysicsSphere::getRadius() const {
+	return static_cast<btSphereShape*>(mActor->getCollisionShape())->getRadius();
 }

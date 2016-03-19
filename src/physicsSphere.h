@@ -7,9 +7,9 @@
 #ifndef _BULLETPLUGIN_PHYSICSSPHERE_H_
 #define _BULLETPLUGIN_PHYSICSSPHERE_H_
 
-#include <btBulletDynamicsCommon.h>
+#include "physicsBody.h"
 
-class PhysicsSphere {
+class PhysicsSphere : public PhysicsBody {
 public:
 	PhysicsSphere();
 	~PhysicsSphere();
@@ -23,74 +23,23 @@ public:
 	void addActor();
 
 	/**
-	 * Sets the position of the sphere in world space.
-	 * @param pos The position vector for the sphere.
-	 */
-	void setPosition(const btVector3 &pos);
-
-	/**
-	 * Sets the rotation of the sphere in world space.
-	 * @param rot The rotation quaternion for the sphere.
-	 */
-	void setRotation(const btQuaternion &rot);
-
-	/**
 	 * Sets the radius of the sphere.
 	 * @param radius The radius for the sphere.
 	 */
 	void setRadius(const float radius);
 
 	/**
-	 * Gets the position of the sphere in world space.
-	 */
-	btVector3 getPosition() const;
-
-	/**
-	 * Gets the rotation of the sphere in world space.
-	 * @return the rotation quaternion of the sphere.
-	 */
-	btQuaternion getRotation() const;
-
-	/**
 	 * Gets the sphere's scale in local space.
 	 * @return the floating point value of the sphere's radius.
 	 */
-	inline float getRadius() const {
-		return mRadius;
-	}
-
-	/**
-	 * Gets the rigid body pointer for the sphere.
-	 * @return the rigid body actor.
-	 */
-	inline btRigidBody* getRigidBody() const {
-		return mActor;
-	}
+	float getRadius() const;
 
 private:
-	/**
-	 * Holds the rigid body pointer for the sphere.
-	 * @default nullptr
-	 */
-	btRigidBody *mActor;
-
 	/**
 	 * Holds the radius for the sphere. 
 	 * @default 0.5f
 	 */
 	float mRadius;
-
-	/**
-	 * Holds the amount of surface friction for the sphere.
-	 * @default 1.0f
-	 */
-	float mFriction;
-
-	/**
-	 * Holds the amount of surface restitution for the sphere.
-	 * @default 0.5f
-	 */
-	float mRestitution;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSSPHERE_H_
