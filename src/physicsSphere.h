@@ -43,17 +43,13 @@ public:
 	/**
 	 * Gets the position of the sphere in world space.
 	 */
-	inline btVector3 getPosition() const {
-		return mPosition;
-	}
+	btVector3 getPosition() const;
 
 	/**
 	 * Gets the rotation of the sphere in world space.
 	 * @return the rotation quaternion of the sphere.
 	 */
-	inline btQuaternion getRotation() const {
-		return mRotation;
-	}
+	btQuaternion getRotation() const;
 
 	/**
 	 * Gets the sphere's scale in local space.
@@ -83,18 +79,6 @@ private:
 	 * @default 0.5f
 	 */
 	float mRadius;
-
-	/**
-	 * Holds the position for the sphere. 
-	 * @default <0,0,0>
-	 */
-	btVector3 mPosition;
-	
-	/**
-	 * Holds the rotation for the sphere.
-	 * @default the identity matrix
-	 */
-	btQuaternion mRotation;
 
 	/**
 	 * Holds the amount of surface friction for the sphere.

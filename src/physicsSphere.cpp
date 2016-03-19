@@ -9,8 +9,6 @@
 PhysicsSphere::PhysicsSphere() {
 	mActor = nullptr;
 	mRadius = 0.5f;
-	mPosition = btVector3(0.0f, 0.0f, 0.0f);
-	mRotation = btQuaternion::getIdentity();
 	mRestitution = 1.0f;
 	mFriction = 1.0f;
 }
@@ -29,8 +27,6 @@ void PhysicsSphere::addActor() {
 
 	btTransform transform;
 	transform.setIdentity();
-	transform.setOrigin(mPosition);
-	transform.setRotation(mRotation);
 
 	auto state = new btDefaultMotionState();
 	state->setWorldTransform(transform);
@@ -52,18 +48,23 @@ void PhysicsSphere::setPosition(const btVector3 &pos) {
 	btTransform &trans = mActor->getWorldTransform();
 	trans.setOrigin(pos);
 	mActor->setWorldTransform(trans);
-	mPosition = pos;
 }
 
 void PhysicsSphere::setRotation(const btQuaternion &rot) {
 	btTransform &trans = mActor->getWorldTransform();
 	trans.setRotation(rot);
 	mActor->setWorldTransform(trans);
-	mRotation = rot;
 }
 
 void PhysicsSphere::setRadius(const float radius) {
 	static_cast<btSphereShape*>(mActor->getCollisionShape())->setUnscaledRadius(radius);
 	mActor->setCcdSweptSphereRadius(mRadius / 10.0f);
-	mRadius = radius;
+}
+
+btVector3 PhysicsSphere::getPosition() const {
+	return mActor->getWorldTransform().getOrigin();
+}
+
+btQuaternion PhysicsSphere::getRotation() const {
+	return mActor->getWorldTransform().getRotation();
 }

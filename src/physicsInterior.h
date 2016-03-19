@@ -48,17 +48,13 @@ public:
 	/**
 	 * Gets the position of the interior in world space.
 	 */
-	inline btVector3 getPosition() const {
-		return mPosition;
-	}
+	btVector3 getPosition() const;
 
 	/**
 	 * Gets the rotation of the interior in world space.
 	 * @return the rotation quaternion of the interior.
 	 */
-	inline btQuaternion getRotation() const {
-		return mRotation;
-	}
+	btQuaternion getRotation() const;
 
 	/**
 	 * Gets the interior's scale in local space.
@@ -88,18 +84,6 @@ private:
 	 * @default <1,1,1>
 	 */
 	btVector3 mScale;
-
-	/**
-	 * Holds the position for the interior. 
-	 * @default <0,0,0>
-	 */
-	btVector3 mPosition;
-	
-	/**
-	 * Holds the rotation for the interior.
-	 * @default the identity matrix
-	 */
-	btQuaternion mRotation;
 
 	/**
 	 * Holds the amount of surface friction for the default surface.

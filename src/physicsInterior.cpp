@@ -9,8 +9,6 @@
 PhysicsInterior::PhysicsInterior() {
 	mActor = nullptr;
 	mScale = btVector3(1.0f, 1.0f, 1.0f);
-	mPosition = btVector3(0.0f, 0.0f, 0.0f);
-	mRotation = btQuaternion::getIdentity();
 	mRestitution = 1.0f;
 	mFriction = 1.0f;
 }
@@ -38,8 +36,6 @@ void PhysicsInterior::addMesh(float *pointArray, unsigned int count) {
 
 	btTransform transform;
 	transform.setIdentity();
-	transform.setOrigin(mPosition);
-	transform.setRotation(mRotation);
 
 	auto state = new btDefaultMotionState();
 	state->setWorldTransform(transform);
@@ -55,17 +51,23 @@ void PhysicsInterior::setPosition(const btVector3 &pos) {
 	btTransform &trans = mActor->getWorldTransform();
 	trans.setOrigin(pos);
 	mActor->setWorldTransform(trans);
-	mPosition = pos;
 }
 
 void PhysicsInterior::setRotation(const btQuaternion &rot) {
 	btTransform &trans = mActor->getWorldTransform();
 	trans.setRotation(rot);
 	mActor->setWorldTransform(trans);
-	mRotation = rot;
 }
 
 void PhysicsInterior::setScale(const btVector3 &scale) {
 	static_cast<btScaledBvhTriangleMeshShape*>(mActor->getCollisionShape())->setLocalScaling(scale);
 	mScale = scale;
+}
+
+btVector3 PhysicsInterior::getPosition() const {
+	return mActor->getWorldTransform().getOrigin();
+}
+
+btQuaternion PhysicsInterior::getRotation() const {
+	return mActor->getWorldTransform().getRotation();
 }
