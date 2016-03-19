@@ -6,15 +6,12 @@
 
 #include "physicsInterior.h"
 
-PhysicsInterior::PhysicsInterior() {
-	mActor = nullptr;
-	mScale = btVector3(1.0f, 1.0f, 1.0f);
-	mRestitution = 1.0f;
-	mFriction = 1.0f;
+PhysicsInterior::PhysicsInterior() : PhysicsBody() {
+
 }
 
 PhysicsInterior::~PhysicsInterior() {
-	delete mActor;
+
 }
 
 void PhysicsInterior::addMesh(float *pointArray, unsigned int count) {
@@ -31,7 +28,7 @@ void PhysicsInterior::addMesh(float *pointArray, unsigned int count) {
 		mesh->addTriangle(vertex0, vertex1, vertex2, true);
 	}
 
-	auto shape = new btScaledBvhTriangleMeshShape(new btBvhTriangleMeshShape(mesh, true, true), mScale);
+	auto shape = new btScaledBvhTriangleMeshShape(new btBvhTriangleMeshShape(mesh, true, true), btVector3(1.0f, 1.0f, 1.0f));
 	shape->setMargin(0.1f);
 
 	btTransform transform;
@@ -47,27 +44,10 @@ void PhysicsInterior::addMesh(float *pointArray, unsigned int count) {
 	mActor->setCollisionFlags(mActor->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 }
 
-void PhysicsInterior::setPosition(const btVector3 &pos) {
-	btTransform &trans = mActor->getWorldTransform();
-	trans.setOrigin(pos);
-	mActor->setWorldTransform(trans);
-}
-
-void PhysicsInterior::setRotation(const btQuaternion &rot) {
-	btTransform &trans = mActor->getWorldTransform();
-	trans.setRotation(rot);
-	mActor->setWorldTransform(trans);
-}
-
 void PhysicsInterior::setScale(const btVector3 &scale) {
 	static_cast<btScaledBvhTriangleMeshShape*>(mActor->getCollisionShape())->setLocalScaling(scale);
-	mScale = scale;
 }
 
-btVector3 PhysicsInterior::getPosition() const {
-	return mActor->getWorldTransform().getOrigin();
-}
-
-btQuaternion PhysicsInterior::getRotation() const {
-	return mActor->getWorldTransform().getRotation();
+btVector3 PhysicsInterior::getScale() const {
+	return static_cast<btScaledBvhTriangleMeshShape*>(mActor->getCollisionShape())->getLocalScaling();
 }
