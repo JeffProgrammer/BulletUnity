@@ -7,9 +7,9 @@
 #ifndef _BULLETPLUGIN_PHYSICSSPHERE_H_
 #define _BULLETPLUGIN_PHYSICSSPHERE_H_
 
-#include "physicsBody.h"
+#include "physicsRigidBody.h"
 
-class PhysicsSphere : public PhysicsBody {
+class PhysicsSphere : public PhysicsRigidBody {
 public:
 	PhysicsSphere();
 

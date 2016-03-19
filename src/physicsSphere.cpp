@@ -6,7 +6,7 @@
 
 #include "physicsSphere.h"
 
-PhysicsSphere::PhysicsSphere() : PhysicsBody() {
+PhysicsSphere::PhysicsSphere() : PhysicsRigidBody() {
 	mRadius = 0.5f;
 }
 
