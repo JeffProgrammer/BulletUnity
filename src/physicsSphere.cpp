@@ -10,10 +10,6 @@ PhysicsSphere::PhysicsSphere() : PhysicsBody() {
 	mRadius = 0.5f;
 }
 
-PhysicsSphere::~PhysicsSphere() {
-
-}
-
 void PhysicsSphere::addActor() {
 	auto *shape = new btSphereShape(mRadius);
 

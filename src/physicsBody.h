@@ -12,7 +12,7 @@
 class PhysicsBody {
 public:
 	PhysicsBody();
-	~PhysicsBody();
+	virtual ~PhysicsBody();
 
 	/**
 	 * Sets the position of the body in world space.

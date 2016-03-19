@@ -12,7 +12,6 @@
 class PhysicsSphere : public PhysicsBody {
 public:
 	PhysicsSphere();
-	~PhysicsSphere();
 
 	/**
 	 * Creates the rigid body actor for the sphere.

@@ -10,10 +10,6 @@ PhysicsInterior::PhysicsInterior() : PhysicsBody() {
 
 }
 
-PhysicsInterior::~PhysicsInterior() {
-
-}
-
 void PhysicsInterior::addMesh(float *pointArray, unsigned int count) {
 	// oddly enough, static interiors still need rigid bodies.
 	// nice job, bullet.

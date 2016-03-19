@@ -12,7 +12,6 @@
 class PhysicsInterior : public PhysicsBody {
 public:
 	PhysicsInterior();
-	~PhysicsInterior();
 
 	/**
 	 * Creates the collision mesh on the interior.
