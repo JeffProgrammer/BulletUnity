@@ -16,7 +16,7 @@ extern "C" {
 	 * Creates a new physics world.
 	 * @return a PhysicsWorld instance pointer.
 	 */
-	void* physics_engine_create() {
+	PLUGIN_API void* physics_engine_create() {
 		return new PhysicsEngine();
 	}
 
@@ -24,7 +24,7 @@ extern "C" {
 	 * Destroys a physics world.
 	 * @param [IN] physicsEngine The physics engine instance pointer.
 	 */
-	void physics_engine_destroy(void *physicsEngine) {
+	PLUGIN_API void physics_engine_destroy(void *physicsEngine) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		delete engine;
 		engine = nullptr;
@@ -36,7 +36,7 @@ extern "C" {
 	 * @param [IN] dt The time delta in seconds from the last frame to the current
 	 *  frame.
 	 */
-	void physics_engine_simulate(void *physicsEngine, float dt) {
+	PLUGIN_API void physics_engine_simulate(void *physicsEngine, float dt) {
 		static_cast<PhysicsEngine*>(physicsEngine)->simulate(dt);
 	}
 
@@ -46,7 +46,7 @@ extern "C" {
 	 * @param [IN] gravity A 3-dimentional vector containing the direction and 
 	 *  magnitude of the world's default global gravity.
 	 */
-	void physics_engine_set_gravity(void *physicsEngine, float *gravity) {
+	PLUGIN_API void physics_engine_set_gravity(void *physicsEngine, float *gravity) {
 		static_cast<PhysicsEngine*>(physicsEngine)->setWorldGravity(btVector3(gravity[0], gravity[1], gravity[2]));
 	}
 
@@ -56,7 +56,7 @@ extern "C" {
 	 * @param [OUT] gravity A 3-dimentional vector containing the direction and
 	 *  magnitude of the world's default global gravity.
 	 */
-	void physics_engine_get_gravity(void *physicsEngine, float *gravity) {
+	PLUGIN_API void physics_engine_get_gravity(void *physicsEngine, float *gravity) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		const btVector3 &vec = engine->getWorldGravity();
 		gravity[0] = vec.x;
@@ -69,7 +69,7 @@ extern "C" {
 	 * @param [IN] physicsEngine The physics engine instance pointer.
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 */
-	void physics_engine_add_static_interior(void *physicsEngine, void *physicsInterior) {
+	PLUGIN_API void physics_engine_add_static_interior(void *physicsEngine, void *physicsInterior) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		engine->addPhysicsInterior(static_cast<PhysicsInterior*>(physicsInterior));
 	}
@@ -79,7 +79,7 @@ extern "C" {
 	 * @param [IN] physicsEngine The physics engine instance pointer.
 	 * @param [IN] physicsSphere The physics sphere instance pointer.
 	 */
-	void physics_engine_add_sphere(void *physicsEngine, void *physicsSphere) {
+	PLUGIN_API void physics_engine_add_sphere(void *physicsEngine, void *physicsSphere) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		engine->addPhysicsSphere(static_cast<PhysicsSphere*>(physicsSphere));
 	}

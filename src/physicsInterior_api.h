@@ -7,6 +7,7 @@
 #ifndef _BULLETPLUGIN_PHYSICSINTERIOR_API_H_
 #define _BULLETPLUGIN_PHYSICSINTERIOR_API_H_
 
+#include "physicsEngine.h"
 #include "physicsInterior.h"
 
 extern "C" {
@@ -14,7 +15,7 @@ extern "C" {
 	 * Creates a new physics interior.
 	 * @return a PhysicsInterior instance pointer.
 	 */
-	void* physics_interior_create() {
+	PLUGIN_API void* physics_interior_create() {
 		return new PhysicsInterior();
 	}
 
@@ -22,7 +23,7 @@ extern "C" {
 	 * Destroys a physics interior.
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 */
-	void physics_engine_destroy(void *physicsInterior) {
+	PLUGIN_API void physics_engine_destroy(void *physicsInterior) {
 		auto interior = static_cast<PhysicsInterior*>(physicsInterior);
 		delete interior;
 		interior = nullptr;
@@ -34,7 +35,7 @@ extern "C" {
 	 * @param [IN] pointArray the array of vertices [3 floats per vertex].
 	 * @param [IN] size The amount of items within pointArray.
 	 */
-	void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int count) {
+	PLUGIN_API void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int count) {
 		static_cast<PhysicsInterior*>(physicsInterior)->addMesh(pointArray, count);
 	}
 
@@ -43,7 +44,7 @@ extern "C" {
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 * @param [IN] position The position vector (3 floats).
 	 */
-	void physics_interior_set_position(void *physicsInterior, float *position) {
+	PLUGIN_API void physics_interior_set_position(void *physicsInterior, float *position) {
 		btVector3 pos(position[0], position[1], position[2]);
 		static_cast<PhysicsInterior*>(physicsInterior)->setPosition(pos);
 	}
@@ -53,7 +54,7 @@ extern "C" {
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 * @param [IN] rotation The rotation vector (4 floats).
 	 */
-	void physics_interior_set_rotation(void *physicsInterior, float *rotation) {
+	PLUGIN_API void physics_interior_set_rotation(void *physicsInterior, float *rotation) {
 		btQuaternion rot(rotation[0], rotation[1], rotation[2], rotation[3]);
 		static_cast<PhysicsInterior*>(physicsInterior)->setRotation(rot);
 	}
@@ -63,7 +64,7 @@ extern "C" {
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 * @param [IN] scale The scale vector (3 floats).
 	 */
-	void physics_interior_set_scale(void *physicsInterior, float *scale) {
+	PLUGIN_API void physics_interior_set_scale(void *physicsInterior, float *scale) {
 		btVector3 scl(scale[0], scale[1], scale[2]);
 		static_cast<PhysicsInterior*>(physicsInterior)->setScale(scl);
 	}
@@ -73,7 +74,7 @@ extern "C" {
 	 * @param [IN]  physicsInterior The physics interior instance pointer.
 	 * @param [OUT] position The position vector (3 floats).
 	 */
-	void physics_interior_get_position(void *physicsInterior, float *position) {
+	PLUGIN_API void physics_interior_get_position(void *physicsInterior, float *position) {
 		const auto &pos = static_cast<PhysicsInterior*>(physicsInterior)->getPosition();
 		position[0] = pos.x;
 		position[1] = pos.y;
@@ -85,7 +86,7 @@ extern "C" {
 	 * @param [IN]  physicsInterior The physics interior instance pointer.
 	 * @param [OUT] rotation The rotation vector (4 floats).
 	 */
-	void physics_interior_get_rotation(void *physicsInterior, float *rotation) {
+	PLUGIN_API void physics_interior_get_rotation(void *physicsInterior, float *rotation) {
 		const auto &rot = static_cast<PhysicsInterior*>(physicsInterior)->getRotation();
 		rotation[0] = rot.x;
 		rotation[1] = rot.y;
@@ -98,7 +99,7 @@ extern "C" {
 	 * @param [IN]  physicsInterior The physics interior instance pointer.
 	 * @param [OUT] scale The scale vector (3 floats).
 	 */
-	void physics_interior_get_scale(void *physicsInterior, float *scale) {
+	PLUGIN_API void physics_interior_get_scale(void *physicsInterior, float *scale) {
 		const auto &scl = static_cast<PhysicsInterior*>(physicsInterior)->getScale();
 		scale[0] = scl.x;
 		scale[1] = scl.y;

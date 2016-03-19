@@ -16,6 +16,12 @@
  */
 #define PHYSICS_TICK 0.016666666
 
+#if _MSC_VER
+	#define PLUGIN_API __declspec(dllexport)
+#else
+	#define PLUGIN_API
+#endif
+
 class PhysicsInterior;
 class PhysicsSphere;
 
