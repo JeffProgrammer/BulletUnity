@@ -6,6 +6,7 @@
 
 #include "physicsEngine.h"
 #include "physicsInterior.h"
+#include "physicsSphere.h"
 
 PhysicsEngine::PhysicsEngine() {
 	mAccumulator = 0.0;
@@ -49,5 +50,9 @@ void PhysicsEngine::setWorldGravity(const btVector3 &gravity) {
 }
 
 void PhysicsEngine::addPhysicsInterior(PhysicsInterior *interior) {
+	mWorld->addRigidBody(interior->getRigidBody());
+}
 
+void PhysicsEngine::addPhysicsSphere(PhysicsSphere *sphere) {
+	mWorld->addRigidBody(sphere->getRigidBody());
 }

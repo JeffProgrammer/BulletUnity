@@ -9,6 +9,7 @@
 
 #include "physicsEngine.h"
 #include "physicsInterior.h"
+#include "physicsSphere.h"
 
 extern "C" {
 	/**
@@ -71,6 +72,16 @@ extern "C" {
 	void physics_engine_add_static_interior(void *physicsEngine, void *physicsInterior) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		engine->addPhysicsInterior(static_cast<PhysicsInterior*>(physicsInterior));
+	}
+
+	/**
+	 * Adds a sphere into the physics engine.
+	 * @param [IN] physicsEngine The physics engine instance pointer.
+	 * @param [IN] physicsSphere The physics sphere instance pointer.
+	 */
+	void physics_engine_add_sphere(void *physicsEngine, void *physicsSphere) {
+		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
+		engine->addPhysicsSphere(static_cast<PhysicsSphere*>(physicsSphere));
 	}
 }
 

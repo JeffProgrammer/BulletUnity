@@ -17,6 +17,7 @@
 #define PHYSICS_TICK 0.016666666
 
 class PhysicsInterior;
+class PhysicsSphere;
 
 class PhysicsEngine {
 public:
@@ -45,10 +46,16 @@ public:
 	}
 
 	/**
-	 * Adds an inteiror object into the physics world.
+	 * Adds an interior object into the physics world.
 	 * @param interior The physics interior collision object.
 	 */
 	void addPhysicsInterior(PhysicsInterior *interior);
+
+	/**
+	 * Adds a sphere object into the physics world.
+	 * @param sphere The physics sphere collision object.
+	 */
+	void addPhysicsSphere(PhysicsSphere *sphere);
 
 private:
 	/**
