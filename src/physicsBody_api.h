@@ -17,18 +17,6 @@
 
 extern "C" {
 	/**
-	 * Creates a new physics body.
-	 * @return a PhysicsInterior instance pointer.
-	 */
-	PLUGIN_API void* physics_body_create();
-	
-	/**
-	 * Destroys a physics body.
-	 * @param [IN] actor The physics body instance pointer.
-	 */
-	PLUGIN_API void physics_body_destroy(void *actor);
-
-	/**
 	 * Sets the position of the physics body.
 	 * @param [IN] actor The physics body instance pointer.
 	 * @param [IN] position The position vector (3 floats).

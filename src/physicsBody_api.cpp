@@ -7,16 +7,6 @@
 #include "physicsBody.h"
 
 extern "C" {
-	void* physics_body_create() {
-		return new PhysicsBody();
-	}
-
-	void physics_body_destroy(void *actor) {
-		auto interior = static_cast<PhysicsBody*>(actor);
-		delete interior;
-		interior = nullptr;
-	}
-
 	void physics_body_set_position(void *actor, float *position) {
 		btVector3 pos(position[0], position[1], position[2]);
 		static_cast<PhysicsBody*>(actor)->setPosition(pos);
