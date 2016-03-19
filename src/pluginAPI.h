@@ -4,6 +4,13 @@
 // All rights reserved.
 //------------------------------------------------------------------------------
 
-#include "physicsEngine_api.h"
-#include "physicsInterior_api.h"
-#include "physicsSphere_api.h"
+#ifndef _BULLETPLUGIN_PLUGINAPI_H_
+#define _BULLETPLUGIN_PLUGINAPI_H_
+
+#if _MSC_VER
+	#define PLUGIN_API __declspec(dllexport)
+#else
+	#define PLUGIN_API
+#endif
+
+#endif // _BULLETPLUGIN_PLUGINAPI_H_

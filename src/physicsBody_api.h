@@ -7,12 +7,7 @@
 #ifndef _BULLETPLUGIN_PHYSICSBODY_API_H_
 #define _BULLETPLUGIN_PHYSICSBODY_API_H_
 
-#if _MSC_VER
-	#define PLUGIN_API __declspec(dllexport)
-#else
-	#define PLUGIN_API
-#endif
-
+#include "pluginAPI.h"
 #include "physicsBody.h"
 
 extern "C" {
