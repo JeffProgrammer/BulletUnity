@@ -31,4 +31,28 @@ extern "C" {
 		rotation[2] = rot.z();
 		rotation[3] = rot.w();
 	}
+
+	void physics_body_set_restitution(void *actor, float restitution) {
+		static_cast<PhysicsBody*>(actor)->setRestitution(restitution);
+	}
+
+	void physics_body_set_friction(void *actor, float friction) {
+		static_cast<PhysicsBody*>(actor)->setFriction(friction);
+	}
+
+	void physics_body_set_rolling_friction(void *actor, float friction) {
+		static_cast<PhysicsBody*>(actor)->setRollingFriction(friction);
+	}
+
+	float physics_body_get_restitution(void *actor) {
+		return static_cast<PhysicsBody*>(actor)->getRestitution();
+	}
+
+	float physics_body_get_friction(void *actor) {
+		return static_cast<PhysicsBody*>(actor)->getFriction();
+	}
+
+	float physics_body_get_rolling_friction(void *actor) {
+		return static_cast<PhysicsBody*>(actor)->getRollingFriction();
+	}
 }

@@ -10,6 +10,7 @@ PhysicsBody::PhysicsBody() {
 	mActor = nullptr;
 	mRestitution = 1.0f;
 	mFriction = 1.0f;
+	mRollingFriction = 1.0f;
 }
 
 PhysicsBody::~PhysicsBody() {
@@ -34,4 +35,31 @@ btVector3 PhysicsBody::getPosition() const {
 
 btQuaternion PhysicsBody::getRotation() const {
 	return mActor->getWorldTransform().getRotation();
+}
+
+void PhysicsBody::setRestitution(float restitution) {
+	mActor->setRestitution(restitution);
+	mRestitution = restitution;
+}
+
+void PhysicsBody::setFriction(float friction) {
+	mActor->setFriction(friction);
+	mFriction = friction;
+}
+
+void PhysicsBody::setRollingFriction(float rollingFriction) {
+	mActor->setRollingFriction(rollingFriction);
+	mRollingFriction = rollingFriction;
+}
+
+float PhysicsBody::getRestitution() const {
+	return mRestitution;
+}
+
+float PhysicsBody::getFriction() const {
+	return mFriction;
+}
+
+float PhysicsBody::getRollingFriction() const {
+	return mRollingFriction;
 }

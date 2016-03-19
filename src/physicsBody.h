@@ -38,6 +38,42 @@ public:
 	btQuaternion getRotation() const;
 
 	/**
+	 * Sets the restitution of the physics body.
+	 * @param restitution The amount of restitution for the physics body.
+	 */
+	void setRestitution(float restitution);
+
+	/**
+	 * Sets the friction of the physics body.
+	 * @param friction The amount of friction for the physics body.
+	 */
+	void setFriction(float friction);
+
+	/**
+	 * Sets the rolling friction of the physics body.
+	 * @param rollingFriction The amount of rolling friction for the physics body.
+	 */
+	void setRollingFriction(float rollingFriction);
+
+	/**
+	 * Gets the restitution of the physics body.
+	 * @return The amount of restitution for the physics body.
+	 */
+	float getRestitution() const;
+
+	/**
+	 * Gets the friction of the physics body.
+	 * @return The amount of friction for the physics body.
+	 */
+	float getFriction() const;
+
+	/**
+	 * Gets the rolling friction of the physics body.
+	 * @return The amount of rolling friction for the physics body.
+	 */
+	float getRollingFriction() const;
+
+	/**
 	 * Gets the rigid body pointer for the body.
 	 * @return the rigid body actor.
 	 */
@@ -57,6 +93,12 @@ protected:
 	 * @default 1.0f
 	 */
 	float mFriction;
+
+	/**
+	 * Holds the amount of surface rolling friction for the default surface.
+	 * @default 1.0f
+	 */
+	float mRollingFriction;
 
 	/**
 	 * Holds the amount of surface restitution for the default surface.
