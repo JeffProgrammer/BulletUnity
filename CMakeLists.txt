@@ -35,6 +35,7 @@ set (BULLETPLUGIN_INCLUDEDIR
 
 # Main project source
 set (BULLETPLUGIN_SRC
+	src/api.cpp
 	src/physicsEngine.cpp
 	src/physicsEngine.h
 	src/physicsEngine_api.h

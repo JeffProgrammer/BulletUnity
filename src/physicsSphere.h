@@ -4,7 +4,7 @@
 // All rights reserved.
 //------------------------------------------------------------------------------
 
-#ifndef _BULLETPLUGIN_PHYSICSPHERE_H_
+#ifndef _BULLETPLUGIN_PHYSICSSPHERE_H_
 #define _BULLETPLUGIN_PHYSICSSPHERE_H_
 
 #include <btBulletDynamicsCommon.h>

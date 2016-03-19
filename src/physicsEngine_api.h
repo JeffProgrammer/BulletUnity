@@ -58,10 +58,10 @@ extern "C" {
 	 */
 	PLUGIN_API void physics_engine_get_gravity(void *physicsEngine, float *gravity) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
-		const btVector3 &vec = engine->getWorldGravity();
-		gravity[0] = vec.x;
-		gravity[1] = vec.y;
-		gravity[2] = vec.z;
+		btVector3 vec = engine->getWorldGravity();
+		gravity[0] = vec.x();
+		gravity[1] = vec.y();
+		gravity[2] = vec.z();
 	}
 
 	/**

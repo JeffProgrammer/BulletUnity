@@ -23,7 +23,7 @@ extern "C" {
 	 * Destroys a physics sphere.
 	 * @param [IN] physicsSphere The physics sphere instance pointer.
 	 */
-	PLUGIN_API void physics_engine_destroy(void *physicsSphere) {
+	PLUGIN_API void physics_sphere_destroy(void *physicsSphere) {
 		auto sphere = static_cast<PhysicsSphere*>(physicsSphere);
 		delete sphere;
 		sphere = nullptr;
@@ -73,9 +73,9 @@ extern "C" {
 	 */
 	PLUGIN_API void physics_sphere_get_position(void *physicsSphere, float *position) {
 		const auto &pos = static_cast<PhysicsSphere*>(physicsSphere)->getPosition();
-		position[0] = pos.x;
-		position[1] = pos.y;
-		position[2] = pos.z;
+		position[0] = pos.x();
+		position[1] = pos.y();
+		position[2] = pos.z();
 	}
 
 	/**
@@ -85,10 +85,10 @@ extern "C" {
 	 */
 	PLUGIN_API void physics_sphere_get_rotation(void *physicsSphere, float *rotation) {
 		const auto &rot = static_cast<PhysicsSphere*>(physicsSphere)->getRotation();
-		rotation[0] = rot.x;
-		rotation[1] = rot.y;
-		rotation[2] = rot.z;
-		rotation[3] = rot.w;
+		rotation[0] = rot.x();
+		rotation[1] = rot.y();
+		rotation[2] = rot.z();
+		rotation[3] = rot.w();
 	}
 
 	/**

@@ -23,7 +23,7 @@ extern "C" {
 	 * Destroys a physics interior.
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 */
-	PLUGIN_API void physics_engine_destroy(void *physicsInterior) {
+	PLUGIN_API void physics_interior_destroy(void *physicsInterior) {
 		auto interior = static_cast<PhysicsInterior*>(physicsInterior);
 		delete interior;
 		interior = nullptr;
@@ -76,9 +76,9 @@ extern "C" {
 	 */
 	PLUGIN_API void physics_interior_get_position(void *physicsInterior, float *position) {
 		const auto &pos = static_cast<PhysicsInterior*>(physicsInterior)->getPosition();
-		position[0] = pos.x;
-		position[1] = pos.y;
-		position[2] = pos.z;
+		position[0] = pos.x();
+		position[1] = pos.y();
+		position[2] = pos.z();
 	}
 
 	/**
@@ -88,10 +88,10 @@ extern "C" {
 	 */
 	PLUGIN_API void physics_interior_get_rotation(void *physicsInterior, float *rotation) {
 		const auto &rot = static_cast<PhysicsInterior*>(physicsInterior)->getRotation();
-		rotation[0] = rot.x;
-		rotation[1] = rot.y;
-		rotation[2] = rot.z;
-		rotation[3] = rot.w;
+		rotation[0] = rot.x();
+		rotation[1] = rot.y();
+		rotation[2] = rot.z();
+		rotation[3] = rot.w();
 	}
 
 	/**
@@ -101,9 +101,9 @@ extern "C" {
 	 */
 	PLUGIN_API void physics_interior_get_scale(void *physicsInterior, float *scale) {
 		const auto &scl = static_cast<PhysicsInterior*>(physicsInterior)->getScale();
-		scale[0] = scl.x;
-		scale[1] = scl.y;
-		scale[2] = scl.z;
+		scale[0] = scl.x();
+		scale[1] = scl.y();
+		scale[2] = scl.z();
 	}
 }
 
