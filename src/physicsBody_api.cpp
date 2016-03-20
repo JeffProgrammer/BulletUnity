@@ -4,7 +4,7 @@
 // All rights reserved.
 //------------------------------------------------------------------------------
 
-#include "physicsBody.h"
+#include "physicsBody_api.h"
 
 extern "C" {
 	void physics_body_set_position(void *actor, float *position) {
