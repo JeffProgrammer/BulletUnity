@@ -62,6 +62,14 @@ extern "C" {
 	 * @param [IN] physicsSphere The physics sphere instance pointer.
 	 */
 	PLUGIN_API void physics_engine_add_sphere(void *physicsEngine, void *physicsSphere);
+
+	/**
+	 * Adds a physics callback function pointer to the physics engine for a per 
+	 * tick callback.
+	 * @param [IN] physicsEngine The physics engine instance pointer.
+	 * @param [IN] cb The callback function.
+	 */
+	PLUGIN_API void physics_engine_set_tick_callback(void *physicsEngine, UNITY_CALLBACK cb);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSENGINE_API_H_

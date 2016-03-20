@@ -8,9 +8,16 @@
 #include "physicsInterior.h"
 #include "physicsSphere.h"
 
+static void physicsPreTickCallback(btDynamicsWorld *world, btScalar dt) {
+	// Invoke callback to unity. This is where physics code
+	// that interfaces with bullet can be called.
+	// We will invoke it before simulating.
+	auto engine = static_cast<PhysicsEngine*>(world->getWorldUserInfo());
+	engine->mPhysicsTickCallback(dt);
+}
+
 PhysicsEngine::PhysicsEngine() {
-	mAccumulator = 0.0;
-	mMaxSubSteps = 10;
+	mMaxSubSteps = 4;
 	mRunning = true;
 	mWorldGravity = btVector3(0.0f, -20.0f, 0.0f);
 
@@ -22,6 +29,10 @@ PhysicsEngine::PhysicsEngine() {
 	// interface setup, as well as a constraint solver.
 	mWorld = new btDiscreteDynamicsWorld(mDispatcher, new btDbvtBroadphase(), new btSequentialImpulseConstraintSolver(), configuration);
 	mWorld->setGravity(mWorldGravity);
+
+	// assign user pointer and callback
+	mWorld->setWorldUserInfo(this);
+	mWorld->setInternalTickCallback(physicsPreTickCallback, this, true);
 }
 
 PhysicsEngine::~PhysicsEngine() {
@@ -31,16 +42,9 @@ PhysicsEngine::~PhysicsEngine() {
 
 void PhysicsEngine::simulate(const float &dt) {
 	if (mRunning) {
-		mAccumulator += dt;
-		while (mAccumulator > PHYSICS_TICK) {
-			// Invoke callback to unity. This is where physics code
-			// that interfaces with bullet can be called.
-			// We will invoke it before simulating.
-
-			// Now, simulate the world so that the physics advances.
-			mWorld->stepSimulation(static_cast<btScalar>(PHYSICS_TICK), mMaxSubSteps);
-			mAccumulator -= PHYSICS_TICK;
-		}
+		// Now, simulate the world so that the physics advances.
+		// engine runs on its own fixed update
+		mWorld->stepSimulation(dt, mMaxSubSteps);
 	}
 }
 
@@ -55,4 +59,8 @@ void PhysicsEngine::addPhysicsInterior(PhysicsInterior *interior) {
 
 void PhysicsEngine::addPhysicsSphere(PhysicsSphere *sphere) {
 	mWorld->addRigidBody(sphere->getRigidBody());
+}
+
+void PhysicsEngine::setPhysicsUpdateCallback(UNITY_CALLBACK cb) {
+	mPhysicsTickCallback = cb;
 }

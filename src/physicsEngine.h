@@ -10,11 +10,7 @@
 #include <btBulletDynamicsCommon.h>
 #include <BulletCollision/NarrowPhaseCollision/btManifoldPoint.h>
 #include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
-
-/**
- * The fixed time step for the physics.
- */
-#define PHYSICS_TICK 0.016666666
+#include "pluginAPI.h"
 
 class PhysicsInterior;
 class PhysicsSphere;
@@ -57,6 +53,13 @@ public:
 	 */
 	void addPhysicsSphere(PhysicsSphere *sphere);
 
+	/**
+	 * Sets the callback that we will be using to call an update function to
+	 * Unity.
+	 * @param cb The function pointer to callback to.
+	 */
+	void setPhysicsUpdateCallback(UNITY_CALLBACK cb);
+
 private:
 	/**
 	 * The world object that simulates the physics.
@@ -69,19 +72,13 @@ private:
 	btCollisionDispatcher *mDispatcher;
 
 	/**
-	 * Accumulator time. The physics has to run at a fixed update
-	 * at 60 times a second.
-	 */
-	double mAccumulator;
-
-	/**
 	 * Controls whether or not the physics engine is running.
 	 */
 	bool mRunning;
 
 	/**
 	 * Controls the maximum number of sub steps allowed in a simulation.
-	 * Default value is 10.
+	 * Default value is 4.
 	 */
 	int mMaxSubSteps;
 
@@ -89,6 +86,14 @@ private:
 	 * The world's gravity direction and strength.
 	 */
 	btVector3 mWorldGravity;
+
+public:
+
+	/**
+	 * This holds the function pointer to call the physics update function
+	 * callback in Unity.
+	 */
+	UNITY_CALLBACK mPhysicsTickCallback;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSENGINE_H_

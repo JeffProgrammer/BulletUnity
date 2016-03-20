@@ -42,4 +42,8 @@ extern "C" {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		engine->addPhysicsSphere(static_cast<PhysicsSphere*>(physicsSphere));
 	}
+
+	void physics_engine_set_tick_callback(void *physicsEngine, UNITY_CALLBACK cb) {
+		static_cast<PhysicsEngine*>(physicsEngine)->setPhysicsUpdateCallback(cb);
+	}
 }
