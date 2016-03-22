@@ -61,6 +61,6 @@ void PhysicsEngine::addPhysicsSphere(PhysicsSphere *sphere) {
 	mWorld->addRigidBody(sphere->getRigidBody());
 }
 
-void PhysicsEngine::setPhysicsUpdateCallback(UNITY_CALLBACK cb) {
+void PhysicsEngine::setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb) {
 	mPhysicsTickCallback = cb;
 }

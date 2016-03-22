@@ -69,7 +69,7 @@ extern "C" {
 	 * @param [IN] physicsEngine The physics engine instance pointer.
 	 * @param [IN] cb The callback function.
 	 */
-	PLUGIN_API void physics_engine_set_tick_callback(void *physicsEngine, UNITY_CALLBACK cb);
+	PLUGIN_API void physics_engine_set_tick_callback(void *physicsEngine, UNITY_TICK_CALLBACK cb);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSENGINE_API_H_

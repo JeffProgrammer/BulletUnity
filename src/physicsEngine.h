@@ -58,7 +58,7 @@ public:
 	 * Unity.
 	 * @param cb The function pointer to callback to.
 	 */
-	void setPhysicsUpdateCallback(UNITY_CALLBACK cb);
+	void setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb);
 
 private:
 	/**
@@ -93,7 +93,7 @@ public:
 	 * This holds the function pointer to call the physics update function
 	 * callback in Unity.
 	 */
-	UNITY_CALLBACK mPhysicsTickCallback;
+	UNITY_TICK_CALLBACK mPhysicsTickCallback;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSENGINE_H_

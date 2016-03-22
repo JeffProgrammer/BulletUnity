@@ -14,6 +14,6 @@
 #endif
 
 // Reference: https://github.com/natbro/UnityPlugin/blob/master/UnityPluginTest/Assets/Scripts/UnityPlugin.cs
-typedef void(*UNITY_CALLBACK)(float dt);
+typedef void(*UNITY_TICK_CALLBACK)(float dt);
 
 #endif // _BULLETPLUGIN_PLUGINAPI_H_
