@@ -29,7 +29,7 @@ extern "C" {
 	 * @param [IN] pointArray the array of vertices [3 floats per vertex].
 	 * @param [IN] size The amount of items within pointArray.
 	 */
-	PLUGIN_API void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int count);
+	PLUGIN_API void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int pointCount, int *materialArray);
 
 	/**
 	 * Sets the scale of the physics interior.

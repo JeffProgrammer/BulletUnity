@@ -9,6 +9,8 @@
 
 #include <btBulletDynamicsCommon.h>
 
+struct ContactCallbackInfo;
+
 class PhysicsBody {
 public:
 	PhysicsBody();
@@ -81,6 +83,18 @@ public:
 		return mActor;
 	}
 
+	inline void setWorld(btDiscreteDynamicsWorld *world) {
+		mWorld = world;
+	}
+
+	inline btDiscreteDynamicsWorld* getWorld() const {
+		return mWorld;
+	}
+
+	virtual bool modifyContact(ContactCallbackInfo &info, bool isBody0);
+
+	virtual void notifyContact(ContactCallbackInfo &info, bool isBody0);
+
 protected:
 	/**
 	 * Holds the rigid body pointer for the body.
@@ -105,6 +119,11 @@ protected:
 	 * @default 1.0f
 	 */
 	float mRestitution;
+
+	/**
+	 * Pointer to the physics world that the body is attached to.
+	 */
+	btDiscreteDynamicsWorld *mWorld;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSBODY_H_

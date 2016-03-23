@@ -56,6 +56,8 @@ set (BULLETPLUGIN_SRC
 	src/physicsSphere_api.cpp
 	src/physicsSphere_api.h
 	src/pluginAPI.h
+	src/util.cpp
+	src/util.h
 )
 
 set (BULLETPLUGIN_LIBRARIES

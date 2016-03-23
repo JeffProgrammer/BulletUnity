@@ -17,8 +17,8 @@ extern "C" {
 		interior = nullptr;
 	}
 
-	void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int count) {
-		static_cast<PhysicsInterior*>(physicsInterior)->addMesh(pointArray, count);
+	void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int pointCount, int *materialArray) {
+		static_cast<PhysicsInterior*>(physicsInterior)->addMesh(pointArray, pointCount, materialArray);
 	}
 
 	void physics_interior_set_scale(void *physicsInterior, float *scale) {

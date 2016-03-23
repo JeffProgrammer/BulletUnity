@@ -5,6 +5,7 @@
 //------------------------------------------------------------------------------
 
 #include "physicsEngine.h"
+#include "physicsBody.h"
 #include "physicsInterior.h"
 #include "physicsSphere.h"
 
@@ -14,6 +15,49 @@ static void physicsPreTickCallback(btDynamicsWorld *world, btScalar dt) {
 	// We will invoke it before simulating.
 	auto engine = static_cast<PhysicsEngine*>(world->getWorldUserInfo());
 	engine->mPhysicsTickCallback(dt);
+}
+
+static bool contactAddedCallback(btManifoldPoint &cp, const btCollisionObjectWrapper *colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper *colObj1Wrap, int partId1, int index1) {
+	PhysicsBody *body0 = static_cast<PhysicsBody *>(colObj0Wrap->getCollisionObject()->getUserPointer());
+	PhysicsBody *body1 = static_cast<PhysicsBody *>(colObj1Wrap->getCollisionObject()->getUserPointer());
+
+	ContactCallbackInfo info(cp);
+	info.colObj0Wrap = colObj0Wrap;
+	info.colObj1Wrap = colObj1Wrap;
+	info.partId0 = partId0;
+	info.partId1 = partId1;
+	info.index0 = index0;
+	info.index1 = index1;
+	info.body0 = body0;
+	info.body1 = body1;
+
+	if (body0 && !body0->modifyContact(info, true))
+		return false;
+	if (body1 && !body1->modifyContact(info, false))
+		return false;
+
+	return true;
+}
+
+void contactProcessedCallback(btManifoldPoint &cp, const btCollisionObject *colObj0, const btCollisionObject *colObj1) {
+	PhysicsBody *body0 = static_cast<PhysicsBody *>(colObj0->getUserPointer());
+	PhysicsBody *body1 = static_cast<PhysicsBody *>(colObj1->getUserPointer());
+
+	ContactCallbackInfo info(cp);
+	info.colObj0 = colObj0;
+	info.colObj1 = colObj1;
+	info.partId0 = cp.m_partId0;
+	info.partId1 = cp.m_partId1;
+	info.index0 = cp.m_index0;
+	info.index1 = cp.m_index1;
+	info.body0 = body0;
+	info.body1 = body1;
+	info.world = body0->getWorld();
+
+	if (body0)
+		body0->notifyContact(info, true);
+	if (body1)
+		body1->notifyContact(info, false);
 }
 
 PhysicsEngine::PhysicsEngine() {
@@ -33,6 +77,9 @@ PhysicsEngine::PhysicsEngine() {
 	// assign user pointer and callback
 	mWorld->setWorldUserInfo(this);
 	mWorld->setInternalTickCallback(physicsPreTickCallback, this, true);
+
+	gContactAddedCallback = contactAddedCallback;
+	gContactProcessedCallback = contactProcessedCallback;
 }
 
 PhysicsEngine::~PhysicsEngine() {
@@ -54,10 +101,12 @@ void PhysicsEngine::setWorldGravity(const btVector3 &gravity) {
 }
 
 void PhysicsEngine::addPhysicsInterior(PhysicsInterior *interior) {
+	interior->setWorld(mWorld);
 	mWorld->addRigidBody(interior->getRigidBody());
 }
 
 void PhysicsEngine::addPhysicsSphere(PhysicsSphere *sphere) {
+	sphere->setWorld(mWorld);
 	mWorld->addRigidBody(sphere->getRigidBody());
 }
 

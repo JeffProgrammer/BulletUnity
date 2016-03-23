@@ -33,6 +33,10 @@ public:
 	 */
 	float getRadius() const;
 
+	virtual bool modifyContact(ContactCallbackInfo &info, bool isBody0) override;
+
+	virtual void notifyContact(ContactCallbackInfo &info, bool isBody0) override;
+
 private:
 	/**
 	 * Holds the radius for the sphere. 

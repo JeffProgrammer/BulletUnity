@@ -5,9 +5,11 @@
 //------------------------------------------------------------------------------
 
 #include "physicsBody.h"
+#include "physicsEngine.h"
 
 PhysicsBody::PhysicsBody() {
 	mActor = nullptr;
+	mWorld = nullptr;
 	mRestitution = 1.0f;
 	mFriction = 1.0f;
 	mRollingFriction = 1.0f;
@@ -62,4 +64,12 @@ float PhysicsBody::getFriction() const {
 
 float PhysicsBody::getRollingFriction() const {
 	return mRollingFriction;
+}
+
+bool PhysicsBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
+	return true;
+}
+
+void PhysicsBody::notifyContact(ContactCallbackInfo &info, bool isBody0) {
+
 }
