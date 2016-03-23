@@ -13,6 +13,11 @@
 #include <fstream>
 #include <iomanip>
 
+#ifdef _WIN32
+	// Win32 compatability layer
+	#include <asprintf.h>
+#endif
+
 bool TriangleF::isPointInside(const btVector3 &point) const {
 	//http://www.blackpawn.com/texts/pointinpoly/
 	btVector3 v0 = mVertex[2] - mVertex[0],

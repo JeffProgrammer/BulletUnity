@@ -33,6 +33,13 @@ set (BULLETPLUGIN_INCLUDEDIR
 	thirdparty/bullet/src
 )
 
+if (MSVC)
+	set (BULLETPLUGIN_INCLUDEDIR
+		${BULLETPLUGIN_INCLUDEDIR}
+		thirdparty/compat
+	)
+endif()
+
 # Main project source
 set (BULLETPLUGIN_SRC
 	src/physicsBody.cpp
@@ -71,3 +78,7 @@ set (BULLETPLUGIN_LIBRARIES
 include_directories(include ${BULLETPLUGIN_INCLUDEDIR})
 add_library(BulletPlugin SHARED ${BULLETPLUGIN_SRC})
 target_link_libraries(BulletPlugin ${BULLETPLUGIN_LIBRARIES})
+
+if (MSVC)
+	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
