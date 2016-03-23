@@ -7,7 +7,11 @@
 #include <btBulletDynamicsCommon.h>
 #include "pluginAPI.h"
 #include "util.h"
-
+#include <stdarg.h>
+#include <ctime>
+#include <iostream>
+#include <fstream>
+#include <iomanip>
 
 bool TriangleF::isPointInside(const btVector3 &point) const {
 	//http://www.blackpawn.com/texts/pointinpoly/
@@ -66,4 +70,31 @@ extern "C" {
 	PLUGIN_API void set_debug_callback(UNITY_DEBUGLOG_CALLBACK cb) {
 		unityDebugLog = cb;
 	}
+}
+
+void unitylogf(const char *format, ...) {
+	//Get the args formatted
+	va_list args;
+	va_start(args, format);
+
+	char *string;
+	vasprintf(&string, format, args);
+
+	va_end(args);
+
+	//Print it
+	unityDebugLog(string);
+
+	//Hacky file
+	std::time_t t = std::time(nullptr);
+
+	//Todo: get actual file path?
+	std::ofstream tmpFile("out.log", std::ios::app);
+	tmpFile << "[" << std::put_time(std::localtime(&t), "%c") << "] " << string << std::endl;
+	tmpFile.flush();
+	tmpFile.close();
+
+	//Hooray, C
+	free(string);
+
 }

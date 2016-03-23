@@ -24,4 +24,6 @@ extern "C" {
 	PLUGIN_API void set_debug_callback(UNITY_DEBUGLOG_CALLBACK cb);
 }
 
+void unitylogf(const char *format, ...);
+
 #endif // _BULLETPLUGIN_PLUGINAPI_H_

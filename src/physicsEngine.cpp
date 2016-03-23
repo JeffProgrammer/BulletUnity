@@ -44,11 +44,11 @@ void contactProcessedCallback(btManifoldPoint &cp, const btCollisionObject *colO
 	PhysicsBody *body1 = static_cast<PhysicsBody *>(colObj1->getUserPointer());
 
 	if (body0 == nullptr) {
-		unityDebugLog("body0 is nullptr!");
+		unitylogf("body0 is nullptr!");
 		return;
 	}
 	if (body1 == nullptr) {
-		unityDebugLog("body1 is nullptr!");
+		unitylogf("body1 is nullptr!");
 		return;
 	}
 
