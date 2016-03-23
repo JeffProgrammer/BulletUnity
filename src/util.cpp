@@ -5,7 +5,9 @@
 //------------------------------------------------------------------------------
 
 #include <btBulletDynamicsCommon.h>
+#include "pluginAPI.h"
 #include "util.h"
+
 
 bool TriangleF::isPointInside(const btVector3 &point) const {
 	//http://www.blackpawn.com/texts/pointinpoly/
@@ -58,4 +60,10 @@ bool TriangleF::isTriangleAdjacent(const TriangleF &other) const {
 	if (isCollinear(mVertex[0], mVertex[2], other.mVertex[0], other.mVertex[2]))
 		return true;
 	return false;
+}
+
+extern "C" {
+	PLUGIN_API void set_debug_callback(UNITY_DEBUGLOG_CALLBACK cb) {
+		unityDebugLog = cb;
+	}
 }

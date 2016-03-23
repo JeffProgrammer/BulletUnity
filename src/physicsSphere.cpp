@@ -67,6 +67,10 @@ void PhysicsSphere::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 		return;
 	}
 
+	return;
+	unityDebugLog("PhysicsSphere::notifyContact()");
+	return;
+
 	/*
 	via https://github.com/bulletphysics/bullet3/issues/288
 	if ( collisionPoint.isOnTriSurface && !collisionPoint.isOnTriEdge )

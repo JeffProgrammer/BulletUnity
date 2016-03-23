@@ -119,6 +119,8 @@ public:
 	 * callback in Unity.
 	 */
 	UNITY_TICK_CALLBACK mPhysicsTickCallback;
+
+	UNITY_DEBUGLOG_CALLBACK mDebugCallback;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSENGINE_H_

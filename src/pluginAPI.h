@@ -16,4 +16,12 @@
 // Reference: https://github.com/natbro/UnityPlugin/blob/master/UnityPluginTest/Assets/Scripts/UnityPlugin.cs
 typedef void(*UNITY_TICK_CALLBACK)(float dt);
 
+typedef void(*UNITY_DEBUGLOG_CALLBACK)(const char *str);
+
+static UNITY_DEBUGLOG_CALLBACK unityDebugLog;
+
+extern "C" {
+	PLUGIN_API void set_debug_callback(UNITY_DEBUGLOG_CALLBACK cb);
+}
+
 #endif // _BULLETPLUGIN_PLUGINAPI_H_

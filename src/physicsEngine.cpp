@@ -43,6 +43,15 @@ void contactProcessedCallback(btManifoldPoint &cp, const btCollisionObject *colO
 	PhysicsBody *body0 = static_cast<PhysicsBody *>(colObj0->getUserPointer());
 	PhysicsBody *body1 = static_cast<PhysicsBody *>(colObj1->getUserPointer());
 
+	if (body0 == nullptr) {
+		unityDebugLog("body0 is nullptr!");
+		return;
+	}
+	if (body1 == nullptr) {
+		unityDebugLog("body1 is nullptr!");
+		return;
+	}
+
 	ContactCallbackInfo info(cp);
 	info.colObj0 = colObj0;
 	info.colObj1 = colObj1;
@@ -102,11 +111,13 @@ void PhysicsEngine::setWorldGravity(const btVector3 &gravity) {
 
 void PhysicsEngine::addPhysicsInterior(PhysicsInterior *interior) {
 	interior->setWorld(mWorld);
+	interior->getRigidBody()->setUserPointer(interior);
 	mWorld->addRigidBody(interior->getRigidBody());
 }
 
 void PhysicsEngine::addPhysicsSphere(PhysicsSphere *sphere) {
 	sphere->setWorld(mWorld);
+	sphere->getRigidBody()->setUserPointer(sphere);
 	mWorld->addRigidBody(sphere->getRigidBody());
 }
 
