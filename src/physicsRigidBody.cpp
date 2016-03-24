@@ -31,3 +31,18 @@ bool PhysicsRigidBody::isColliding() const {
 	}
 	return false;
 }
+
+bool PhysicsRigidBody::isCollidingWith(const PhysicsBody *obj) const {
+	auto otherCollider = obj->getRigidBody();
+
+	int manifolds = mWorld->getDispatcher()->getNumManifolds();
+	for (int i = 0; i < manifolds; i++) {
+		auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
+		auto body0 = manifold->getBody0();
+		auto body1 = manifold->getBody1();
+		if ((body0 == mActor && body1 == otherCollider) ||
+			 (body1 == mActor && body0 == otherCollider))
+			return true;
+	}
+	return false;
+}

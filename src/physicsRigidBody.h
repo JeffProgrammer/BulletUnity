@@ -38,6 +38,13 @@ public:
 	 * @return true if the object is colliding with something, false otherwise.
 	 */
 	bool isColliding() const;
+
+	/**
+	 * Checks if the rigidbody is colliding with the rigidbody specified.
+	 * @param obj The PhysicsBody object to see if we are colliding with it.
+	 * @return if obj and this are colliding, false otherwise.
+	 */
+	bool isCollidingWith(const PhysicsBody *obj) const;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_H_

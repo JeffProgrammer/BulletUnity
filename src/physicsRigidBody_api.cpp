@@ -27,4 +27,9 @@ extern "C" {
 	bool physics_rigid_body_is_colliding(void *actor) {
 		return static_cast<PhysicsRigidBody*>(actor)->isColliding();
 	}
+
+	bool physics_rigid_body_is_colliding_with(void *actor, void *other) {
+		const auto physicsBody = static_cast<PhysicsBody*>(other);
+		return static_cast<PhysicsRigidBody*>(actor)->isCollidingWith(physicsBody);
+	}
 }

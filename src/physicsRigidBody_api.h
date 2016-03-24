@@ -40,6 +40,16 @@ extern "C" {
 	* @return true if the rigidbody is colliding with something, false otherwise.
 	*/
 	PLUGIN_API bool physics_rigid_body_is_colliding(void *actor);
+
+	/**
+	 * Checks to see if the rigid body is colliding with the PhysicsBody 
+	 * specified.
+	 * @param [IN] actor The rigid body instance pointer. 
+	 * @param [IN] The physics body pointer to check if the instance pointer is
+	 *  colliding with it.
+	 * @return true if the two objects are colliding, false otherwise.
+	 */
+	PLUGIN_API bool physics_rigid_body_is_colliding_with(void *actor, void *other);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_API_H_
