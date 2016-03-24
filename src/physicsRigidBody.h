@@ -32,6 +32,12 @@ public:
 	 * @param origin The local offset where the impulse is being added.
 	 */
 	void applyImpulse(const btVector3 &impulse, const btVector3 &origin);
+
+	/**
+	 * Checks if the rigidbody is colliding with something in the air.
+	 * @return true if the object is colliding with something, false otherwise.
+	 */
+	bool isColliding() const;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_H_

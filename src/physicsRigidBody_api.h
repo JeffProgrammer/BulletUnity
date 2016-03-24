@@ -33,6 +33,13 @@ extern "C" {
 	 * @param [IN] origin The offset of where to apply the impulse (3 floats).
 	 */
 	PLUGIN_API void physics_rigid_body_apply_impulse(void *actor, float *impulse, float *origin);
+
+	/**
+	* Checks to see if the rigid body is colliding with something.
+	* @param [IN] actor The physics body instance pointer.
+	* @return true if the rigidbody is colliding with something, false otherwise.
+	*/
+	PLUGIN_API bool physics_rigid_body_is_colliding(void *actor);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_API_H_

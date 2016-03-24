@@ -23,4 +23,8 @@ extern "C" {
 		btVector3 theOrigin(origin[0], origin[1], origin[2]);
 		static_cast<PhysicsRigidBody*>(actor)->addForce(theImpulse, theOrigin);
 	}
+
+	bool physics_rigid_body_is_colliding(void *actor) {
+		return static_cast<PhysicsRigidBody*>(actor)->isColliding();
+	}
 }

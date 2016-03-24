@@ -21,3 +21,13 @@ void PhysicsRigidBody::addTorque(const btVector3 &torque) {
 void PhysicsRigidBody::applyImpulse(const btVector3 &impulse, const btVector3 &origin) {
 	mActor->applyImpulse(impulse, origin);
 }
+
+bool PhysicsRigidBody::isColliding() const {
+	int manifolds = mWorld->getDispatcher()->getNumManifolds();
+	for (int i = 0; i < manifolds; i++) {
+		auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
+		if (manifold->getBody0() == mActor || manifold->getBody1() == mActor)
+			return true;
+	}
+	return false;
+}
