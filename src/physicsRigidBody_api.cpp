@@ -32,4 +32,19 @@ extern "C" {
 		const auto physicsBody = static_cast<PhysicsBody*>(other);
 		return static_cast<PhysicsRigidBody*>(actor)->isCollidingWith(physicsBody);
 	}
+
+	bool physics_rigid_body_get_collision_normal(void *actor, float *toiVelocity, float *normal) {
+		btVector3 getToiVelocity, getNormal;
+		if (!static_cast<PhysicsRigidBody*>(actor)->getCollisionNormal(getToiVelocity, getNormal))
+			return false;
+		
+		// There was a collision, marshal the data
+		toiVelocity[0] = getToiVelocity.x();
+		toiVelocity[1] = getToiVelocity.y();
+		toiVelocity[2] = getToiVelocity.z();
+		normal[0] = getNormal.x();
+		normal[1] = getNormal.y();
+		normal[2] = getNormal.z();
+		return true;
+	}
 }

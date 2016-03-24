@@ -46,3 +46,42 @@ bool PhysicsRigidBody::isCollidingWith(const PhysicsBody *obj) const {
 	}
 	return false;
 }
+
+bool PhysicsRigidBody::getCollisionNormal(btVector3 &toiVelocity, btVector3 &normal) const {
+	int manifolds = mWorld->getDispatcher()->getNumManifolds();
+
+	bool set = false;
+	normal = btVector3(0.0f, 0.0f, 0.0f);
+	toiVelocity = btVector3(0.0f, 0.0f, 0.0f);
+
+	for (int i = 0; i < manifolds; i++) {
+		auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
+		auto body0 = manifold->getBody0();
+		auto body1 = manifold->getBody1();
+
+		if (body0 == mActor || body1 == mActor) {
+			int count = manifold->getNumContacts();
+			for (int j = 0; j < count; j++) {
+				const auto &point = manifold->getContactPoint(j);
+
+				// get normal
+				btVector3 n = point.m_normalWorldOnB;
+				if (body1 == mActor)
+					n *= -1.0f;
+				normal += n;
+
+				// add velocity
+				toiVelocity += point.m_impactVelocity;
+			}
+			set = true;
+		}
+	}
+
+	if (!set)
+		return false;
+
+	// normalize the normal and toiVelocity to average them.
+	normal.normalize();
+	toiVelocity.normalize();
+	return true;
+}

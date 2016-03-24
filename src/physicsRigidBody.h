@@ -45,6 +45,14 @@ public:
 	 * @return if obj and this are colliding, false otherwise.
 	 */
 	bool isCollidingWith(const PhysicsBody *obj) const;
+
+	/**
+	 * Gets the normalized normal from all the collision contacts.
+	 * @param [OUT] toiVelocity The normalized time of impact velocity.
+	 * @param [OUT] normal The normalized normal of all collision contacts.
+	 * @return true if there was a collision at all, false otherwise.
+	 */
+	bool getCollisionNormal(btVector3 &toiVelocity, btVector3 &normal) const;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_H_

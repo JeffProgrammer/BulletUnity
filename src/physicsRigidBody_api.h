@@ -50,6 +50,17 @@ extern "C" {
 	 * @return true if the two objects are colliding, false otherwise.
 	 */
 	PLUGIN_API bool physics_rigid_body_is_colliding_with(void *actor, void *other);
+
+	/**
+	 * Gets the normal and time of impact velocity, both normalized, of the 
+	 * actor.
+	 * @param [IN]  actor The rigid body instance pointer.
+	 * @param [OUT] toiVelocity The time of impact velocity, normalized.
+	 * @param [OUT] normal The normal of the collision(s), normalized.
+	 * @return true if there was a collision at all, false otherwise.
+	 * @note We only marshal the data if there was in fact a collision.
+	 */
+	PLUGIN_API bool physics_rigid_body_get_collision_normal(void *actor, float *toiVelocity, float *normal);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_API_H_
