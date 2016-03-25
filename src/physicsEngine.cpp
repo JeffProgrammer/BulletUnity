@@ -124,3 +124,15 @@ void PhysicsEngine::addPhysicsSphere(PhysicsSphere *sphere) {
 void PhysicsEngine::setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb) {
 	mPhysicsTickCallback = cb;
 }
+
+bool PhysicsEngine::rayCast(const btVector3 &from, const btVector3 &to, PhysicsBody *&body, btVector3 &pos, btVector3 &normal) const {
+	btCollisionWorld::ClosestRayResultCallback resultCallback(from, to);
+	mWorld->rayTest(from, to, resultCallback);
+	if (!resultCallback.hasHit())
+		return false;
+
+	body = static_cast<PhysicsBody*>(resultCallback.m_collisionObject->getUserPointer());
+	pos = resultCallback.m_hitPointWorld;
+	normal = resultCallback.m_hitNormalWorld;
+	return true;
+}

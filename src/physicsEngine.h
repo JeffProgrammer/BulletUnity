@@ -85,6 +85,18 @@ public:
 	 */
 	void setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb);
 
+	/**
+	 * Casts a ray between two vectors to see if we have a hit.
+	 * @param [IN]  from The start vector of the raycast.
+	 * @param [IN]  to The end vector of the raycast.
+	 * @param [OUT] body The physics body of the hit, if successful.
+	 * @param [OUT] pos The position of the hit, if successful.
+	 * @param [OUT] normal The normal of the hit, if successful.
+	 * @return true if there was a hit, false otherwise.
+	 * @note body, pos, normal will not be set unless the hit was successful.
+	 */
+	bool rayCast(const btVector3 &from, const btVector3 &to, PhysicsBody *&body, btVector3 &pos, btVector3 &normal) const;
+
 private:
 	/**
 	 * The world object that simulates the physics.

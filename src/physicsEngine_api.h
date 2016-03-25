@@ -70,6 +70,20 @@ extern "C" {
 	 * @param [IN] cb The callback function.
 	 */
 	PLUGIN_API void physics_engine_set_tick_callback(void *physicsEngine, UNITY_TICK_CALLBACK cb);
+
+	/**
+	 * Does a raycast on the physics engine from from to point to.
+	 * @param [IN]  physicsEngine The physics engine instance pointer.
+	 * @param [IN]  from The start vector of the raycast.
+	 * @param [IN]  to The end vector of the raycast.
+	 * @param [OUT] physicsBody The physics body of the hit, if successful.
+	 * @param [OUT] pos The position of the hit, if successful.
+	 * @param [OUT] normal The normal of the hit, if successful.
+	 * @return true if there was a hit, false otherwise.
+	 * @note physicsBody, pos, normal will not be marshaled unless the hit was
+	 *  successful.
+	 */
+	PLUGIN_API bool physics_engine_raycast(void *physicsEngine, float *from, float *to, void *physicsBody, float *pos, float *normal);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSENGINE_API_H_
