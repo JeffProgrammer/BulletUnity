@@ -53,6 +53,30 @@ public:
 	 * @return true if there was a collision at all, false otherwise.
 	 */
 	bool getCollisionNormal(btVector3 &toiVelocity, btVector3 &normal) const;
+
+	/**
+	 * Sets the linear velocity of the rigid body.
+	 * @param velocity The linear velocity for the rigid body.
+	 */
+	void setLinVelocity(const btVector3 &velocity);
+
+	/**
+	 * Sets the angular velocity of the rigid body.
+	 * @param velocity The angular velocity for the rigid body.
+	 */
+	void setAngVelocity(const btVector3 &velocity);
+
+	/**
+	 * Gets the linear velocity of the rigid body.
+	 * @return The linear velocity.
+	 */
+	btVector3 getLinVelocity() const;
+
+	/**
+	 * Gets the angular velocity of the rigid body.
+	 * @return The angular velocity.
+	 */
+	btVector3 getAngVelocity() const;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_H_

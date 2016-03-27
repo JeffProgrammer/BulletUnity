@@ -47,4 +47,26 @@ extern "C" {
 		normal[2] = getNormal.z();
 		return true;
 	}
+
+	void physics_rigid_body_set_lin_velocity(void *actor, float *vel) {
+		static_cast<PhysicsRigidBody*>(actor)->setLinVelocity(btVector3(vel[0], vel[1], vel[2]));
+	}
+
+	void physics_rigid_body_set_ang_velocity(void *actor, float *vel) {
+		static_cast<PhysicsRigidBody*>(actor)->setAngVelocity(btVector3(vel[0], vel[1], vel[2]));
+	}
+
+	void physics_rigid_body_get_lin_velocity(void *actor, float *vel) {
+		btVector3 linVelocity = static_cast<PhysicsRigidBody*>(actor)->getLinVelocity();
+		vel[0] = linVelocity.x();
+		vel[1] = linVelocity.y();
+		vel[2] = linVelocity.z();
+	}
+
+	void physics_rigid_body_get_ang_velocity(void *actor, float *vel) {
+		btVector3 angVelocity = static_cast<PhysicsRigidBody*>(actor)->getAngVelocity();
+		vel[0] = angVelocity.x();
+		vel[1] = angVelocity.y();
+		vel[2] = angVelocity.z();
+	}
 }

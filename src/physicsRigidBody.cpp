@@ -85,3 +85,19 @@ bool PhysicsRigidBody::getCollisionNormal(btVector3 &toiVelocity, btVector3 &nor
 	toiVelocity.normalize();
 	return true;
 }
+
+void PhysicsRigidBody::setLinVelocity(const btVector3 &velocity) {
+	mActor->setLinearVelocity(velocity);
+}
+
+void PhysicsRigidBody::setAngVelocity(const btVector3 &velocity) {
+	mActor->setAngularVelocity(velocity);
+}
+
+btVector3 PhysicsRigidBody::getLinVelocity() const {
+	return mActor->getLinearVelocity();
+}
+
+btVector3 PhysicsRigidBody::getAngVelocity() const {
+	return mActor->getAngularVelocity();
+}

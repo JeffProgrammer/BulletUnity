@@ -61,6 +61,34 @@ extern "C" {
 	 * @note We only marshal the data if there was in fact a collision.
 	 */
 	PLUGIN_API bool physics_rigid_body_get_collision_normal(void *actor, float *toiVelocity, float *normal);
+
+	/**
+	 * Sets the linear velocity of the RigidBody.
+	 * @param [IN] actor The rigid body instance pointer.
+	 * @param [IN] vel The linear velocity of the body.
+	 */
+	PLUGIN_API void physics_rigid_body_set_lin_velocity(void *actor, float *vel);
+
+	/**
+	 * Sets the angular velocity of the RigidBody.
+	 * @param [IN] actor The rigid body instance pointer.
+	 * @param [IN] vel The angular velocity of the body.
+	 */
+	PLUGIN_API void physics_rigid_body_set_ang_velocity(void *actor, float *vel);
+
+	/**
+	 * Gets the linear velocity of the RigidBody.
+	 * @param [IN]  actor The rigid body instance pointer.
+	 * @param [OUT] vel The linear velocity of the body.
+	 */
+	PLUGIN_API void physics_rigid_body_get_lin_velocity(void *actor, float *vel);
+
+	/**
+	 * Gets the angular velocity of the RigidBody.
+	 * @param [IN]  actor The rigid body instance pointer.
+	 * @param [OUT] vel The angular velocity of the body.
+	 */
+	PLUGIN_API void physics_rigid_body_get_ang_velocity(void *actor, float *vel);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_API_H_
