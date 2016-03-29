@@ -28,18 +28,15 @@ void PhysicsSphere::addActor() {
 
 	//Construction info
 	btRigidBody::btRigidBodyConstructionInfo info(1, state, shape, fallInertia);
-	info.m_restitution = 0.5f; // 0.5 * 0.7
-	info.m_friction = 1.0f;
-	info.m_rollingFriction = 0.3f;
+	info.m_restitution = mRestitution;
+	info.m_friction = mFriction;
+	info.m_rollingFriction = mRollingFriction;
 
 	// Finally, set the actor.
 	mActor = new btRigidBody(info); // TODO: expose mass to C linkage API
 	mActor->setActivationState(DISABLE_DEACTIVATION);
 	mActor->setCcdMotionThreshold(static_cast<btScalar>(1e-3));
 	mActor->setCcdSweptSphereRadius(mRadius / 10.0f);
-	mActor->setRestitution(mRestitution);
-	mActor->setFriction(mFriction);
-	mActor->setRollingFriction(3.0f); // TODO: expose rolling friction to C linkage API
 	mActor->setAnisotropicFriction(shape->getAnisotropicRollingFrictionDirection(), btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
 	mActor->setCollisionFlags(mActor->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 	mActor->setContactProcessingThreshold(0.0f);

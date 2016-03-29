@@ -26,14 +26,18 @@ void PhysicsBox::addActor() {
 	auto state = new btDefaultMotionState();
 	state->setWorldTransform(transform);
 
+	//Construction info
+	btRigidBody::btRigidBodyConstructionInfo info(1, state, shape, fallInertia);
+	info.m_restitution = mRestitution;
+	info.m_friction = mFriction;
+	info.m_rollingFriction = mRollingFriction;
+
 	// Finally, set the actor.
-	mActor = new btRigidBody(1.0f, state, shape); // TODO: expose mass to C linkage API
+	mActor = new btRigidBody(info); // TODO: expose mass to C linkage API
 	mActor->setActivationState(DISABLE_DEACTIVATION);
 	mActor->setCcdMotionThreshold(static_cast<btScalar>(1e-3));
 	mActor->setCcdSweptSphereRadius(mHalfExtents.length() / 10.0f);
-	mActor->setRestitution(mRestitution);
-	mActor->setFriction(mFriction);
-	mActor->setRollingFriction(mRollingFriction);
+
 	mActor->setAnisotropicFriction(shape->getAnisotropicRollingFrictionDirection(), btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
 	mActor->setCollisionFlags(mActor->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 	mActor->setContactProcessingThreshold(0.0f);
