@@ -46,6 +46,10 @@ set (BULLETPLUGIN_SRC
 	src/physicsBody.h
 	src/physicsBody_api.cpp
 	src/physicsBody_api.h
+	src/physicsBox.cpp
+	src/physicsBox.h
+	src/physicsBox_api.cpp
+	src/physicsBox_api.h
 	src/physicsEngine.cpp
 	src/physicsEngine.h
 	src/physicsEngine_api.cpp
