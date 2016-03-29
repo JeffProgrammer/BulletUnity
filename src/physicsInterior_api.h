@@ -11,23 +11,18 @@
 extern "C" {
 	/**
 	 * Creates a new physics interior.
+	 * @param [IN] physicsInterior The physics interior instance pointer.
+	 * @param [IN] pointArray the array of vertices [3 floats per vertex].
+	 * @param [IN] size The amount of items within pointArray.
 	 * @return a PhysicsInterior instance pointer.
 	 */
-	PLUGIN_API void* physics_interior_create();
+	PLUGIN_API void* physics_interior_create(float *pointArray, unsigned int pointCount, int *materialArray);
 
 	/**
 	 * Destroys a physics interior.
 	 * @param [IN] physicsInterior The physics interior instance pointer.
 	 */
 	PLUGIN_API void physics_interior_destroy(void *physicsInterior);
-
-	/**
-	 * Adds a triangle mesh to the physics world.
-	 * @param [IN] physicsInterior The physics interior instance pointer.
-	 * @param [IN] pointArray the array of vertices [3 floats per vertex].
-	 * @param [IN] size The amount of items within pointArray.
-	 */
-	PLUGIN_API void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int pointCount, int *materialArray);
 
 	/**
 	 * Sets the scale of the physics interior.

@@ -15,10 +15,6 @@ extern "C" {
 		sphere = nullptr;
 	}
 
-	void physics_sphere_add_actor(void *physicsSphere) {
-		static_cast<PhysicsSphere*>(physicsSphere)->addActor();
-	}
-
 	void physics_sphere_set_radius(void *physicsSphere, float radius) {
 		static_cast<PhysicsSphere*>(physicsSphere)->setRadius(radius);
 	}

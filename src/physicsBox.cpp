@@ -9,6 +9,7 @@
 
 PhysicsBox::PhysicsBox() : PhysicsRigidBody() {
 	mHalfExtents = btVector3(0.5f, 0.5f, 0.5f);
+	addActor();
 }
 
 void PhysicsBox::addActor() {

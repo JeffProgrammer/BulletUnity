@@ -4,8 +4,8 @@
 
 #include "physicsInterior.h"
 
-PhysicsInterior::PhysicsInterior() : PhysicsBody() {
-
+PhysicsInterior::PhysicsInterior(float *pointArray, unsigned int pointCount, int *materialArray) : PhysicsBody() {
+	addMesh(pointArray, pointCount, materialArray);
 }
 
 void PhysicsInterior::addMesh(float *pointArray, unsigned int pointCount, int *materialArray) {

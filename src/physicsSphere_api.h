@@ -22,12 +22,6 @@ extern "C" {
 	PLUGIN_API void physics_sphere_destroy(void *physicsSphere);
 
 	/**
-	 * Create's the rigidbody actor for the sphere.
-	 * @param [IN] physicsSphere The physics sphere instance pointer.
-	 */
-	PLUGIN_API void physics_sphere_add_actor(void *physicsSphere);
-
-	/**
 	 * Sets the radius of the physics sphere.
 	 * @param [IN] physicsSphere The physics sphere instance pointer.
 	 * @param [IN] radius The radius floating point.

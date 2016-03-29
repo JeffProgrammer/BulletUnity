@@ -5,18 +5,14 @@
 #include "physicsInterior_api.h"
 
 extern "C" {
-	void* physics_interior_create() {
-		return new PhysicsInterior();
+	void* physics_interior_create(float *pointArray, unsigned int pointCount, int *materialArray) {
+		return new PhysicsInterior(pointArray, pointCount, materialArray);
 	}
 
 	void physics_interior_destroy(void *physicsInterior) {
 		auto interior = static_cast<PhysicsInterior*>(physicsInterior);
 		delete interior;
 		interior = nullptr;
-	}
-
-	void physics_interior_add_mesh(void *physicsInterior, float *pointArray, unsigned int pointCount, int *materialArray) {
-		static_cast<PhysicsInterior*>(physicsInterior)->addMesh(pointArray, pointCount, materialArray);
 	}
 
 	void physics_interior_set_scale(void *physicsInterior, float *scale) {

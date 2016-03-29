@@ -12,11 +12,6 @@ public:
 	PhysicsBox();
 
 	/**
-	 * Creates the rigid body actor for the box.
-	 */
-	void addActor();
-
-	/**
 	 * Sets the radius of the box.
 
 	 */
@@ -34,6 +29,12 @@ public:
 
 private:
 	btVector3 mHalfExtents;
+
+
+	/**
+	 * Creates the rigid body actor for the box.
+	 */
+	void addActor();
 };
 
 #endif // _BULLETPLUGIN_PHYSICSSPHERE_H_

@@ -12,14 +12,6 @@ public:
 	PhysicsSphere();
 
 	/**
-	 * Creates the rigid body actor for the sphere.
-	 * @param pointArray an array of floats holding the vertices for the mesh.
-	 *  Each triangle holes 3 vectors, and each vector contains 3 floats.
-	 * @param count The amount of items within pointArray.
-	 */
-	void addActor();
-
-	/**
 	 * Sets the radius of the sphere.
 	 * @param radius The radius for the sphere.
 	 */
@@ -41,6 +33,11 @@ private:
 	 * @default 0.5f
 	 */
 	float mRadius;
+
+	/**
+	 * Creates the rigid body actor for the sphere.
+	 */
+	void addActor();
 };
 
 #endif // _BULLETPLUGIN_PHYSICSSPHERE_H_

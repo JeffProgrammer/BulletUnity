@@ -9,6 +9,7 @@
 
 PhysicsSphere::PhysicsSphere() : PhysicsRigidBody() {
 	mRadius = 0.5f;
+	addActor();
 }
 
 void PhysicsSphere::addActor() {

@@ -15,10 +15,6 @@ extern "C" {
 		box = nullptr;
 	}
 
-	void physics_box_add_actor(void *physicsBox) {
-		static_cast<PhysicsBox*>(physicsBox)->addActor();
-	}
-
 	void physics_box_set_half_extents(void *physicsBox, float *halfExtents) {
 		btVector3 extents(halfExtents[0], halfExtents[1], halfExtents[2]);
 		static_cast<PhysicsBox*>(physicsBox)->setHalfExtents(extents);

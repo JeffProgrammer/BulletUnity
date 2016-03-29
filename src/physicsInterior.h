@@ -11,18 +11,7 @@
 
 class PhysicsInterior : public PhysicsBody {
 public:
-	PhysicsInterior();
-
-	/**
-	 * Creates the collision mesh on the interior.
-	 * @param pointArray an array of floats holding the vertices for the mesh.
-	 *  Each triangle holes 3 vectors, and each vector contains 3 floats.
-	 * @param pointCount The amount of items within pointArray.
-	 * @param materialArray an array of ints holding the material ID for each
-	 *  triangle in the mesh. This will be used for material lookup in a hash 
-	 *  table.
-	 */
-	void addMesh(float *pointArray, unsigned int pointCount, int *materialArray);
+	PhysicsInterior(float *pointArray, unsigned int pointCount, int *materialArray);
 
 	/**
 	 * Sets the scale of the interior in local space.
@@ -52,6 +41,18 @@ private:
 	 * Triangle - A structure holding the per triangle data.
 	 */
 	std::unordered_map<int, Triangle> mTriangleHashTable;
+
+
+	/**
+	 * Creates the collision mesh on the interior.
+	 * @param pointArray an array of floats holding the vertices for the mesh.
+	 *  Each triangle holes 3 vectors, and each vector contains 3 floats.
+	 * @param pointCount The amount of items within pointArray.
+	 * @param materialArray an array of ints holding the material ID for each
+	 *  triangle in the mesh. This will be used for material lookup in a hash
+	 *  table.
+	 */
+	void addMesh(float *pointArray, unsigned int pointCount, int *materialArray);
 };
 
 #endif // _BULLETPLUGIN_PHYSICSINTERIOR_H_

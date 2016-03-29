@@ -22,12 +22,6 @@ extern "C" {
 	PLUGIN_API void physics_box_destroy(void *physicsBox);
 
 	/**
-	 * Create's the rigidbody actor for the box.
-	 * @param [IN] physicsBox The physics box instance pointer.
-	 */
-	PLUGIN_API void physics_box_add_actor(void *physicsBox);
-
-	/**
 	 * Sets the radius of the physics box.
 	 * @param [IN] physicsBox The physics box instance pointer.
 	 * @param [IN] radius The radius floating point.
