@@ -14,9 +14,7 @@ void PhysicsRigidBody::addForce(const btVector3 &force, const btVector3 &origin)
 }
 
 void PhysicsRigidBody::addTorque(const btVector3 &torque) {
-//	unitylogf("Torque: %f %f %f", torque.x(), torque.y(), torque.z());
 	mActor->applyTorque(torque);
-//	unitylogf("Current Torque: %f %f %f", mActor->getTotalTorque().x(), mActor->getTotalTorque().y(), mActor->getTotalTorque().z());
 }
 
 void PhysicsRigidBody::applyImpulse(const btVector3 &impulse, const btVector3 &origin) {

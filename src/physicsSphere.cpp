@@ -25,8 +25,14 @@ void PhysicsSphere::addActor() {
 	auto state = new btDefaultMotionState();
 	state->setWorldTransform(transform);
 
+	//Construction info
+	btRigidBody::btRigidBodyConstructionInfo info(1, state, shape, fallInertia);
+	info.m_restitution = 0.5f; // 0.5 * 0.7
+	info.m_friction = 1.0f;
+	info.m_rollingFriction = 0.3f;
+
 	// Finally, set the actor.
-	mActor = new btRigidBody(1.0f, state, shape); // TODO: expose mass to C linkage API
+	mActor = new btRigidBody(info); // TODO: expose mass to C linkage API
 	mActor->setActivationState(DISABLE_DEACTIVATION);
 	mActor->setCcdMotionThreshold(static_cast<btScalar>(1e-3));
 	mActor->setCcdSweptSphereRadius(mRadius / 10.0f);
