@@ -71,8 +71,8 @@ bool PhysicsRigidBody::getCollisionNormal(btVector3 &toiVelocity, btVector3 &nor
 
 				// add velocity
 				toiVelocity += point.m_impactVelocity;
+				set = true;
 			}
-			set = true;
 		}
 	}
 
