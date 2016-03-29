@@ -53,7 +53,7 @@ bool PhysicsSphere::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 }
 
 void PhysicsSphere::notifyContact(ContactCallbackInfo &info, bool isBody0) {
-	unitylogf("PhysicsSphere::notifyContact() start");
+//	unitylogf("PhysicsSphere::notifyContact() start");
 	//The interior with which we collided
 	// TODO: optimize dynamic_cast
 	PhysicsInterior *inter = dynamic_cast<PhysicsInterior*>(isBody0 ? info.body1 : info.body0);
@@ -66,7 +66,7 @@ void PhysicsSphere::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 		return;
 	}
 
-	unitylogf("PhysicsSphere::notifyContact() after dyncast");
+//	unitylogf("PhysicsSphere::notifyContact() after dyncast");
 
 	/*
 	via https://github.com/bulletphysics/bullet3/issues/288
@@ -143,7 +143,7 @@ void PhysicsSphere::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 		}
 	}
 
-	unitylogf("PhysicsSphere::notifyContact() end");
+//	unitylogf("PhysicsSphere::notifyContact() end");
 
 	//How steep is the wall?
 	//float wallDot = info.point.m_normalWorldOnB.dot(btVector3(0, 0, 1));
