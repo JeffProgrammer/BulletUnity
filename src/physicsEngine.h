@@ -65,16 +65,10 @@ public:
 	}
 
 	/**
-	 * Adds an interior object into the physics world.
-	 * @param interior The physics interior collision object.
+	 * Adds a body object into the physics world.
+	 * @param body The physics body collision object.
 	 */
-	void addPhysicsInterior(PhysicsInterior *interior);
-
-	/**
-	 * Adds a sphere object into the physics world.
-	 * @param sphere The physics sphere collision object.
-	 */
-	void addPhysicsSphere(PhysicsSphere *sphere);
+	void addPhysicsBody(PhysicsBody *body);
 
 	/**
 	 * Sets the callback that we will be using to call an update function to

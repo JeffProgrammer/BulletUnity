@@ -48,18 +48,11 @@ extern "C" {
 	PLUGIN_API void physics_engine_get_gravity(void *physicsEngine, float *gravity);
 
 	/**
-	 * Adds an interior into the physics engine.
+	 * Adds a body into the physics engine.
 	 * @param [IN] physicsEngine The physics engine instance pointer.
-	 * @param [IN] physicsInterior The physics interior instance pointer.
+	 * @param [IN] physicsBody The physics body instance pointer.
 	 */
-	PLUGIN_API void physics_engine_add_static_interior(void *physicsEngine, void *physicsInterior);
-
-	/**
-	 * Adds a sphere into the physics engine.
-	 * @param [IN] physicsEngine The physics engine instance pointer.
-	 * @param [IN] physicsSphere The physics sphere instance pointer.
-	 */
-	PLUGIN_API void physics_engine_add_sphere(void *physicsEngine, void *physicsSphere);
+	PLUGIN_API void physics_engine_add_physics_body(void *physicsEngine, void *physicsBody);
 
 	/**
 	 * Adds a physics callback function pointer to the physics engine for a per 

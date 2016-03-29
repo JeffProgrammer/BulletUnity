@@ -107,16 +107,10 @@ void PhysicsEngine::setWorldGravity(const btVector3 &gravity) {
 	mWorld->setGravity(gravity);
 }
 
-void PhysicsEngine::addPhysicsInterior(PhysicsInterior *interior) {
-	interior->setWorld(mWorld);
-	interior->getRigidBody()->setUserPointer(interior);
-	mWorld->addRigidBody(interior->getRigidBody());
-}
-
-void PhysicsEngine::addPhysicsSphere(PhysicsSphere *sphere) {
-	sphere->setWorld(mWorld);
-	sphere->getRigidBody()->setUserPointer(sphere);
-	mWorld->addRigidBody(sphere->getRigidBody());
+void PhysicsEngine::addPhysicsBody(PhysicsBody *body) {
+	body->setWorld(mWorld);
+	body->getRigidBody()->setUserPointer(body);
+	mWorld->addRigidBody(body->getRigidBody());
 }
 
 void PhysicsEngine::setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb) {

@@ -31,14 +31,9 @@ extern "C" {
 		gravity[2] = vec.z();
 	}
 
-	void physics_engine_add_static_interior(void *physicsEngine, void *physicsInterior) {
+	void physics_engine_add_physics_body(void *physicsEngine, void *physicsBody) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
-		engine->addPhysicsInterior(static_cast<PhysicsInterior*>(physicsInterior));
-	}
-
-	void physics_engine_add_sphere(void *physicsEngine, void *physicsSphere) {
-		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
-		engine->addPhysicsSphere(static_cast<PhysicsSphere*>(physicsSphere));
+		engine->addPhysicsBody(static_cast<PhysicsBody*>(physicsBody));
 	}
 
 	void physics_engine_set_tick_callback(void *physicsEngine, UNITY_TICK_CALLBACK cb) {
