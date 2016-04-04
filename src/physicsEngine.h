@@ -5,6 +5,7 @@
 #ifndef _BULLETPLUGIN_PHYSICSENGINE_H_
 #define _BULLETPLUGIN_PHYSICSENGINE_H_
 
+#include <vector>
 #include <btBulletDynamicsCommon.h>
 #include <BulletCollision/NarrowPhaseCollision/btManifoldPoint.h>
 #include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
@@ -13,6 +14,12 @@
 class PhysicsInterior;
 class PhysicsSphere;
 class PhysicsBody;
+
+struct PhysicsPair {
+	const btCollisionObject *body0;
+	const btCollisionObject *boyd1;
+	bool doNotRemove;
+};
 
 struct ContactCallbackInfo {
 	btManifoldPoint &point;
@@ -115,6 +122,19 @@ private:
 	 * The world's gravity direction and strength.
 	 */
 	btVector3 mWorldGravity;
+	
+	/**
+	 * Pairs of collision objects to prevent onCollision events from firing
+	 * all the time. This keeps it so that they are fired only when a collision
+	 * occurs, not while its colliding.
+	 *
+	 * @note: Looking up performance of vector vs deque, I have concluded that
+	 *  vector suits this job better because we are not pushing to the front
+	 *  of the list, and remove time is almost the same between deque and vector.
+	 *  Plus, for linear searching, which we do a lot of in this, vector is more
+	 *  cache friendly.
+	 */
+	std::vector<PhysicsPair> pairs;
 
 public:
 

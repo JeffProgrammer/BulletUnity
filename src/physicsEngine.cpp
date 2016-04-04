@@ -2,6 +2,7 @@
 // All rights reserved.
 //------------------------------------------------------------------------------
 
+#include <vector>
 #include "physicsEngine.h"
 #include "physicsBody.h"
 #include "physicsInterior.h"
@@ -94,11 +95,64 @@ PhysicsEngine::~PhysicsEngine() {
 	delete mDispatcher;
 }
 
-void PhysicsEngine::simulate(const float &dt) {
+void PhysicsEngine::simulate(const float &dt) {	
 	if (mRunning) {
 		// Now, simulate the world so that the physics advances.
 		// engine runs on its own fixed update
 		mWorld->stepSimulation(dt, mMaxSubSteps);
+		
+		// now go through each pair and dispatch collision and trigger events.
+		const auto dispatcher = mWorld->getDispatcher();
+		int numManifolds = dispatcher->getNumManifolds();
+		for (int i = 0; i < numManifolds; i++) {
+			const auto manifold = dispatcher->getManifoldByIndexInternal(i);
+			
+			const btCollisionObject *body0 = manifold->getBody0();
+			const btCollisionObject *body1 = manifold->getBody1();
+			
+			// check to see if the objects are already within the vector
+			bool found = false;
+			for (PhysicsPair &pair : pairs) {
+				if ((pair.body0 == body0 && pair.boyd1 == body1) ||
+					 (pair.body0 == body1 && pair.boyd1 == body0)) {
+					pair.doNotRemove = true;
+					found = true;
+					break;
+				}
+			}
+			
+			// add it to the list
+			if (!found)
+				pairs.push_back({body0, body1, false});
+			
+			if (body0->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE ||
+				 body1->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE) {
+				// Trigger
+			} else {
+				// collision response.
+				
+				// Calculate average impact force.
+				float impulseAverage = 0.0f;
+				int appliedCount = 0;
+				int pointCount = manifold->getNumContacts();
+				for (int j = 0; j < pointCount; j++) {
+					const btManifoldPoint &point = manifold->getContactPoint(j);
+					if (point.getLifeTime() == 0) {
+						impulseAverage += point.getAppliedImpulse();
+						appliedCount++;
+					}
+				}
+				
+				// Prevent divide by 0 error.
+				if (appliedCount > 0)
+					impulseAverage /= appliedCount;
+			}
+		}
+		
+		// flush out all pairs that were not flagged as do not remove.
+		std::remove_if(pairs.begin(), pairs.end(), [](const PhysicsPair &pair) -> bool {
+			return !pair.doNotRemove;
+		});
 	}
 }
 
