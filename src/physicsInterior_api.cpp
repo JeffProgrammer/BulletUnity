@@ -3,6 +3,7 @@
 //------------------------------------------------------------------------------
 
 #include "physicsInterior_api.h"
+#include "marshal.h"
 
 extern "C" {
 	void* physics_interior_create(float *pointArray, unsigned int pointCount, int *materialArray) {
@@ -16,14 +17,11 @@ extern "C" {
 	}
 
 	void physics_interior_set_scale(void *physicsInterior, float *scale) {
-		btVector3 scl(scale[0], scale[1], scale[2]);
-		static_cast<PhysicsInterior*>(physicsInterior)->setScale(scl);
+		static_cast<PhysicsInterior*>(physicsInterior)->setScale(Marshal::toVector(scale));
 	}
 
 	void physics_interior_get_scale(void *physicsInterior, float *scale) {
 		const auto &scl = static_cast<PhysicsInterior*>(physicsInterior)->getScale();
-		scale[0] = scl.x();
-		scale[1] = scl.y();
-		scale[2] = scl.z();
+		Marshal::toArray(scl, scale);
 	}
 }

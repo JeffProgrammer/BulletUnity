@@ -20,15 +20,13 @@ extern "C" {
 	}
 
 	void physics_engine_set_gravity(void *physicsEngine, float *gravity) {
-		static_cast<PhysicsEngine*>(physicsEngine)->setWorldGravity(btVector3(gravity[0], gravity[1], gravity[2]));
+		static_cast<PhysicsEngine*>(physicsEngine)->setWorldGravity(Marshal::toVector(gravity));
 	}
 
 	void physics_engine_get_gravity(void *physicsEngine, float *gravity) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		btVector3 vec = engine->getWorldGravity();
-		gravity[0] = vec.x();
-		gravity[1] = vec.y();
-		gravity[2] = vec.z();
+		Marshal::toArray(vec, gravity);
 	}
 
 	void physics_engine_add_physics_body(void *physicsEngine, void *physicsBody) {
@@ -49,8 +47,8 @@ extern "C" {
 	}
 
 	bool physics_engine_raycast(void *physicsEngine, float *from, float *to, void *physicsBody, float *pos, float *normal) {
-		btVector3 start(from[0], from[1], from[2]);
-		btVector3 end(to[0], to[1], to[2]);
+		btVector3 start = Marshal::toVector(from);
+		btVector3 end = Marshal::toVector(to);
 
 		PhysicsBody *resultBody = nullptr;
 		btVector3 resultPos;
@@ -61,12 +59,8 @@ extern "C" {
 			return false;
 
 		physicsBody = resultBody;
-		pos[0] = resultPos.x();
-		pos[1] = resultPos.y();
-		pos[2] = resultPos.z();
-		normal[0] = resultNormal.x();
-		normal[1] = resultNormal.y();
-		normal[2] = resultNormal.z();
+		Marshal::toArray(resultPos, pos);
+		Marshal::toArray(resultNormal, normal);
 		return true;
 	}
 }

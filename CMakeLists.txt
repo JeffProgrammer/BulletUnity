@@ -57,6 +57,7 @@ endif()
 
 # Main project source
 set (BULLETPLUGIN_SRC
+	src/marshal.h
 	src/physicsBody.cpp
 	src/physicsBody.h
 	src/physicsBody_api.cpp

@@ -10,6 +10,7 @@
 #include <BulletCollision/NarrowPhaseCollision/btManifoldPoint.h>
 #include <BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
 #include "pluginAPI.h"
+#include "marshal.h"
 
 class PhysicsInterior;
 class PhysicsSphere;

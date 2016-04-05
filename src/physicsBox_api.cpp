@@ -3,6 +3,7 @@
 //------------------------------------------------------------------------------
 
 #include "physicsBox_api.h"
+#include "marshal.h"
 
 extern "C" {
 	void* physics_box_create() {
@@ -16,14 +17,11 @@ extern "C" {
 	}
 
 	void physics_box_set_half_extents(void *physicsBox, float *halfExtents) {
-		btVector3 extents(halfExtents[0], halfExtents[1], halfExtents[2]);
-		static_cast<PhysicsBox*>(physicsBox)->setHalfExtents(extents);
+		static_cast<PhysicsBox*>(physicsBox)->setHalfExtents(Marshal::toVector(halfExtents));
 	}
 	
 	void physics_box_get_half_extents(void *physicsBox, float *halfExtents) {
 		btVector3 extents = static_cast<PhysicsBox*>(physicsBox)->getExtents();
-		halfExtents[0] = extents.x();
-		halfExtents[1] = extents.y();
-		halfExtents[2] = extents.z();
+		Marshal::toArray(extents, halfExtents);
 	}
 }
