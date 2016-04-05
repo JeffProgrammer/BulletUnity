@@ -44,7 +44,7 @@ extern "C" {
 		static_cast<PhysicsEngine*>(physicsEngine)->setOnCollisionCallback(cb);
 	}
 
-	void physics_engine_set_on_trigger_enter(void *physicsEngine, UNITY_ON_ENTER_TRIGGER_CALLBACK cb) {
+	void physics_engine_set_on_enter_trigger_callback(void *physicsEngine, UNITY_ON_ENTER_TRIGGER_CALLBACK cb) {
 		static_cast<PhysicsEngine*>(physicsEngine)->setOnEnterTriggerCallback(cb);
 	}
 

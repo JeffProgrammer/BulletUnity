@@ -76,7 +76,7 @@ extern "C" {
 	 * @param [IN] physicsEngine The physics engine instance pointer.
 	 * @param [IN] cb The callback function.
 	 */
-	PLUGIN_API void physics_engine_set_on_trigger_enter(void *physicsEngine, UNITY_ON_ENTER_TRIGGER_CALLBACK cb);
+	PLUGIN_API void physics_engine_set_on_enter_trigger_callback(void *physicsEngine, UNITY_ON_ENTER_TRIGGER_CALLBACK cb);
 
 	/**
 	 * Does a raycast on the physics engine from from to point to.
