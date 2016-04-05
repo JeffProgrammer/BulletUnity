@@ -2,6 +2,7 @@
 // All rights reserved.
 //------------------------------------------------------------------------------
 
+#include <algorithm>
 #include <vector>
 #include "physicsEngine.h"
 #include "physicsBody.h"
