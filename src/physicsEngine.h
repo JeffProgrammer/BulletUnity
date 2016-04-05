@@ -85,6 +85,18 @@ public:
 	void setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb);
 
 	/**
+	 * Sets the callback for on collision events within Unity.
+	 * @param cb The function pointer to callback to.
+	 */
+	void setOnCollisionCallback(UNITY_ON_COLLISION_CALLBACK cb);
+
+	/**
+	 * Sets the callback for entering a trigger event within Unity.
+	 * @param cb The function pointer to callback to.
+	 */
+	void setOnEnterTriggerCallback(UNITY_ON_ENTER_TRIGGER_CALLBACK cb);
+
+	/**
 	 * Casts a ray between two vectors to see if we have a hit.
 	 * @param [IN]  from The start vector of the raycast.
 	 * @param [IN]  to The end vector of the raycast.
@@ -143,6 +155,17 @@ public:
 	 * callback in Unity.
 	 */
 	UNITY_TICK_CALLBACK mPhysicsTickCallback;
+
+	/**
+	 * This holds the function pointer to call the on collision callback in Unity.
+	 */
+	UNITY_ON_COLLISION_CALLBACK mOnCollisionCallback;
+
+	/**
+	 * This holds the function pointer for whenever a trigger and object
+	 * collision occurs in bullet physics.
+	 */
+	UNITY_ON_ENTER_TRIGGER_CALLBACK mOnEnterTriggerCallback;
 
 	UNITY_DEBUGLOG_CALLBACK mDebugCallback;
 };

@@ -40,6 +40,14 @@ extern "C" {
 		static_cast<PhysicsEngine*>(physicsEngine)->setPhysicsUpdateCallback(cb);
 	}
 
+	void physics_engine_set_on_collision_callback(void *physicsEngine, UNITY_ON_COLLISION_CALLBACK cb) {
+		static_cast<PhysicsEngine*>(physicsEngine)->setOnCollisionCallback(cb);
+	}
+
+	void physics_engine_set_on_trigger_enter(void *physicsEngine, UNITY_ON_ENTER_TRIGGER_CALLBACK cb) {
+		static_cast<PhysicsEngine*>(physicsEngine)->setOnEnterTriggerCallback(cb);
+	}
+
 	bool physics_engine_raycast(void *physicsEngine, float *from, float *to, void *physicsBody, float *pos, float *normal) {
 		btVector3 start(from[0], from[1], from[2]);
 		btVector3 end(to[0], to[1], to[2]);

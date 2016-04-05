@@ -63,6 +63,22 @@ extern "C" {
 	PLUGIN_API void physics_engine_set_tick_callback(void *physicsEngine, UNITY_TICK_CALLBACK cb);
 
 	/**
+	 * Adds a physics callback function pointer to the physics engine for a
+	 * collision callback mechanism.
+	 * @param [IN] physicsEngine The physics engine instance pointer.
+	 * @param [IN] cb The callback function.
+	 */
+	PLUGIN_API void physics_engine_set_on_collision_callback(void *physicsEngine, UNITY_ON_COLLISION_CALLBACK cb);
+
+	/**
+	 * Adds a physics callback function pointer to the physics engine for
+	 * collision trigger detection.
+	 * @param [IN] physicsEngine The physics engine instance pointer.
+	 * @param [IN] cb The callback function.
+	 */
+	PLUGIN_API void physics_engine_set_on_trigger_enter(void *physicsEngine, UNITY_ON_ENTER_TRIGGER_CALLBACK cb);
+
+	/**
 	 * Does a raycast on the physics engine from from to point to.
 	 * @param [IN]  physicsEngine The physics engine instance pointer.
 	 * @param [IN]  from The start vector of the raycast.

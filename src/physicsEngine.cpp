@@ -147,6 +147,9 @@ void PhysicsEngine::simulate(const float &dt) {
 				// Prevent divide by 0 error.
 				if (appliedCount > 0)
 					impulseAverage /= appliedCount;
+
+				// call callback
+				mOnCollisionCallback(body0->getUserPointer(), body1->getUserPointer(), impulseAverage);
 			}
 		}
 		
@@ -170,6 +173,14 @@ void PhysicsEngine::addPhysicsBody(PhysicsBody *body) {
 
 void PhysicsEngine::setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb) {
 	mPhysicsTickCallback = cb;
+}
+
+void PhysicsEngine::setOnCollisionCallback(UNITY_ON_COLLISION_CALLBACK cb) {
+	mOnCollisionCallback = cb;
+}
+
+void PhysicsEngine::setOnEnterTriggerCallback(UNITY_ON_ENTER_TRIGGER_CALLBACK cb) {
+	mOnEnterTriggerCallback = cb;
 }
 
 bool PhysicsEngine::rayCast(const btVector3 &from, const btVector3 &to, PhysicsBody *&body, btVector3 &pos, btVector3 &normal) const {

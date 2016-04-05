@@ -14,6 +14,10 @@
 // Reference: https://github.com/natbro/UnityPlugin/blob/master/UnityPluginTest/Assets/Scripts/UnityPlugin.cs
 typedef void(*UNITY_TICK_CALLBACK)(float dt);
 
+typedef void(*UNITY_ON_COLLISION_CALLBACK)(void *obj0, void *obj1, float averageImpulse);
+
+typedef void(*UNITY_ON_ENTER_TRIGGER_CALLBACK)(void *trigger, void *obj);
+
 typedef void(*UNITY_DEBUGLOG_CALLBACK)(const char *str);
 
 static UNITY_DEBUGLOG_CALLBACK unityDebugLog;
