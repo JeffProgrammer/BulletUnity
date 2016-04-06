@@ -71,6 +71,7 @@ void contactProcessedCallback(btManifoldPoint &cp, const btCollisionObject *colO
 
 PhysicsEngine::PhysicsEngine() {
 	mMaxSubSteps = 4;
+	mPhysicsFrame = 0;
 	mRunning = true;
 	mWorldGravity = btVector3(0.0f, -20.0f, 0.0f);
 
@@ -101,37 +102,42 @@ void PhysicsEngine::simulate(const float &dt) {
 		// Now, simulate the world so that the physics advances.
 		// engine runs on its own fixed update
 		mWorld->stepSimulation(dt, mMaxSubSteps);
-		
-		// now go through each pair and dispatch collision and trigger events.
-		const auto dispatcher = mWorld->getDispatcher();
-		int numManifolds = dispatcher->getNumManifolds();
-		for (int i = 0; i < numManifolds; i++) {
-			const auto manifold = dispatcher->getManifoldByIndexInternal(i);
-			
+
+		// New frame.
+		mPhysicsFrame++;
+
+		// 1. If the pair was not found in the previous frame, but it is found in the current frame,
+		//    then it is new.
+		// 2. If the pair was found in the previous frame and it is in the current frame,
+		//    then it is sustained.
+		// 3. If the pair was found in the previous frame, but is not found in the current frame,
+		//    then it has ended.
+
+		// first pass. detect if it wasn't found in previous frame but is now. Consider that new.
+		for (int i = 0; i < mWorld->getDispatcher()->getNumManifolds(); i++) {
+			const auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
+
 			const btCollisionObject *body0 = manifold->getBody0();
 			const btCollisionObject *body1 = manifold->getBody1();
-			
-			// check to see if the objects are already within the vector
+
+			if (manifold->getNumContacts() == 0)
+				continue;
+
 			bool found = false;
-			for (PhysicsPair &pair : pairs) {
-				if ((pair.body0 == body0 && pair.boyd1 == body1) ||
-					 (pair.body0 == body1 && pair.boyd1 == body0)) {
-					pair.doNotRemove = true;
+			for (PhysicsPair &pair : mPairs) {
+				if ((pair.body0 == body0 && pair.boyd1 == body1) || (pair.body0 == body1 && pair.boyd1 == body0)) {
 					found = true;
+					// 2
+					pair.frameNumber = mPhysicsFrame;
 					break;
 				}
 			}
-			
-			// add it to the list
-			if (!found)
-				pairs.push_back({body0, body1, false});
-			
-			if (body0->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE ||
-				 body1->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE) {
-				// Trigger
-			} else {
-				// collision response.
-				
+
+			if (!found) {
+				// THE COLLISION IS NEW!
+				// 1
+				mPairs.push_back({body0, body1, mPhysicsFrame});
+
 				// Calculate average impact force.
 				float impulseAverage = 0.0f;
 				int appliedCount = 0;
@@ -143,7 +149,7 @@ void PhysicsEngine::simulate(const float &dt) {
 						appliedCount++;
 					}
 				}
-				
+
 				// Prevent divide by 0 error.
 				if (appliedCount > 0)
 					impulseAverage /= appliedCount;
@@ -152,11 +158,12 @@ void PhysicsEngine::simulate(const float &dt) {
 				mOnCollisionCallback(body0->getUserPointer(), body1->getUserPointer(), impulseAverage);
 			}
 		}
-		
-		// flush out all pairs that were not flagged as do not remove.
-		std::remove_if(pairs.begin(), pairs.end(), [](const PhysicsPair &pair) -> bool {
-			return !pair.doNotRemove;
-		});
+
+		// 3
+		// http://stackoverflow.com/questions/8628951/remove-elements-of-a-vector-inside-the-loop/8629366#8629366
+		mPairs.erase(std::remove_if(mPairs.begin(), mPairs.end(), [this](const PhysicsPair &pair) {
+			return pair.frameNumber != this->getPhysicsFrame();
+		}), mPairs.end());
 	}
 }
 

@@ -19,7 +19,7 @@ class PhysicsBody;
 struct PhysicsPair {
 	const btCollisionObject *body0;
 	const btCollisionObject *boyd1;
-	bool doNotRemove;
+	unsigned int frameNumber;
 };
 
 struct ContactCallbackInfo {
@@ -109,6 +109,10 @@ public:
 	 */
 	bool rayCast(const btVector3 &from, const btVector3 &to, PhysicsBody *&body, btVector3 &pos, btVector3 &normal) const;
 
+	inline unsigned int getPhysicsFrame() const {
+		return mPhysicsFrame;
+	}
+
 private:
 	/**
 	 * The world object that simulates the physics.
@@ -147,7 +151,9 @@ private:
 	 *  Plus, for linear searching, which we do a lot of in this, vector is more
 	 *  cache friendly.
 	 */
-	std::vector<PhysicsPair> pairs;
+	std::vector<PhysicsPair> mPairs;
+
+	unsigned int mPhysicsFrame;
 
 public:
 
