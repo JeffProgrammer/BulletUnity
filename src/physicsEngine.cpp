@@ -169,10 +169,8 @@ void PhysicsEngine::handleCollisionCallbacks(float dt) {
 			int appliedCount = 0;
 			for (int j = 0; j < pointCount; j++) {
 				const btManifoldPoint &point = manifold->getContactPoint(j);
-				if (point.getLifeTime() == 0) {
-					impulseAverage += point.getAppliedImpulse();
-					appliedCount++;
-				}
+				impulseAverage += point.getAppliedImpulse();
+				appliedCount++;
 			}
 			
 			// Note: we do not have to check for divide by zero, because
