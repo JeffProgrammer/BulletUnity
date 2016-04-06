@@ -6,7 +6,7 @@
 #include "physicsEngine.h"
 
 PhysicsRigidBody::PhysicsRigidBody() : PhysicsBody() {
-
+	
 }
 
 void PhysicsRigidBody::addForce(const btVector3 &force, const btVector3 &origin) {
@@ -80,8 +80,8 @@ bool PhysicsRigidBody::getCollisionNormal(btVector3 &toiVelocity, btVector3 &nor
 		return false;
 
 	// normalize the normal and toiVelocity to average them.
-	normal.normalize();
-	toiVelocity.normalize();
+	normal.safeNormalize();
+	toiVelocity.safeNormalize();
 	return true;
 }
 
