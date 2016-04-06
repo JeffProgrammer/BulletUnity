@@ -18,7 +18,7 @@ class PhysicsBody;
 
 struct PhysicsPair {
 	const btCollisionObject *body0;
-	const btCollisionObject *boyd1;
+	const btCollisionObject *body1;
 	unsigned int frameNumber;
 };
 
@@ -109,11 +109,24 @@ public:
 	 */
 	bool rayCast(const btVector3 &from, const btVector3 &to, PhysicsBody *&body, btVector3 &pos, btVector3 &normal) const;
 
+	/**
+	 * Gets the current physics frame numbr.
+	 * @return the current physics frame.
+	 * @note Do not expose this to script. This is used internally for the
+	 *  collision system but must be made public because of a lambda function.
+	 */
 	inline unsigned int getPhysicsFrame() const {
 		return mPhysicsFrame;
 	}
+	
+	/**
+	 * Handles callbacks and dispatches them to Unity for collisions.
+	 * @param dt The delta between updates in seconds.
+	 */
+	void handleCollisionCallbacks(float dt);
 
 private:
+	
 	/**
 	 * The world object that simulates the physics.
 	 */

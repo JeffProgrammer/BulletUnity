@@ -9,12 +9,27 @@
 #include "physicsInterior.h"
 #include "physicsSphere.h"
 
+/**
+ * Called before the physics world runs its simulation step.
+ * @param world The current physics world that is simulating.
+ * @param dt The timestep in seconds between the last and current physics update.
+ */
 static void physicsPreTickCallback(btDynamicsWorld *world, btScalar dt) {
 	// Invoke callback to unity. This is where physics code
 	// that interfaces with bullet can be called.
 	// We will invoke it before simulating.
 	auto engine = static_cast<PhysicsEngine*>(world->getWorldUserInfo());
 	engine->mPhysicsTickCallback(dt);
+}
+
+/**
+ * Called after the physics world runs its simulation step.
+ * @param world The current physics world that is simulating.
+ * @param dt The timestep in seconds between the last and current physics update.
+ */
+static void physicsTickCallback(btDynamicsWorld *world, btScalar dt) {
+	auto engine = static_cast<PhysicsEngine*>(world->getWorldUserInfo());
+	engine->handleCollisionCallbacks(dt);
 }
 
 static bool contactAddedCallback(btManifoldPoint &cp, const btCollisionObjectWrapper *colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper *colObj1Wrap, int partId1, int index1) {
@@ -86,7 +101,8 @@ PhysicsEngine::PhysicsEngine() {
 
 	// assign user pointer and callback
 	mWorld->setWorldUserInfo(this);
-	mWorld->setInternalTickCallback(physicsPreTickCallback, this, true);
+	mWorld->setInternalTickCallback(physicsPreTickCallback, this, true); // Pre tick
+	mWorld->setInternalTickCallback(physicsTickCallback, this, false);   // Post tick
 
 	gContactAddedCallback = contactAddedCallback;
 	gContactProcessedCallback = contactProcessedCallback;
@@ -102,69 +118,79 @@ void PhysicsEngine::simulate(const float &dt) {
 		// Now, simulate the world so that the physics advances.
 		// engine runs on its own fixed update
 		mWorld->stepSimulation(dt, mMaxSubSteps);
+	}
+}
 
-		// New frame.
-		mPhysicsFrame++;
-
-		// 1. If the pair was not found in the previous frame, but it is found in the current frame,
-		//    then it is new.
-		// 2. If the pair was found in the previous frame and it is in the current frame,
-		//    then it is sustained.
-		// 3. If the pair was found in the previous frame, but is not found in the current frame,
-		//    then it has ended.
-
-		// first pass. detect if it wasn't found in previous frame but is now. Consider that new.
-		for (int i = 0; i < mWorld->getDispatcher()->getNumManifolds(); i++) {
-			const auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
-
-			const btCollisionObject *body0 = manifold->getBody0();
-			const btCollisionObject *body1 = manifold->getBody1();
-
-			if (manifold->getNumContacts() == 0)
-				continue;
-
-			bool found = false;
-			for (PhysicsPair &pair : mPairs) {
-				if ((pair.body0 == body0 && pair.boyd1 == body1) || (pair.body0 == body1 && pair.boyd1 == body0)) {
-					found = true;
-					// 2
-					pair.frameNumber = mPhysicsFrame;
-					break;
-				}
-			}
-
-			if (!found) {
-				// THE COLLISION IS NEW!
-				// 1
-				mPairs.push_back({body0, body1, mPhysicsFrame});
-
-				// Calculate average impact force.
-				float impulseAverage = 0.0f;
-				int appliedCount = 0;
-				int pointCount = manifold->getNumContacts();
-				for (int j = 0; j < pointCount; j++) {
-					const btManifoldPoint &point = manifold->getContactPoint(j);
-					if (point.getLifeTime() == 0) {
-						impulseAverage += point.getAppliedImpulse();
-						appliedCount++;
-					}
-				}
-
-				// Prevent divide by 0 error.
-				if (appliedCount > 0)
-					impulseAverage /= appliedCount;
-
-				// call callback
-				mOnCollisionCallback(body0->getUserPointer(), body1->getUserPointer(), impulseAverage);
+void PhysicsEngine::handleCollisionCallbacks(float dt) {
+	// New frame.
+	mPhysicsFrame++;
+	
+	// 1. If the pair was not found in the previous frame, but it is found in the current frame,
+	//    then it is new.
+	// 2. If the pair was found in the previous frame and it is in the current frame,
+	//    then it is sustained.
+	// 3. If the pair was found in the previous frame, but is not found in the current frame,
+	//    then it has ended.
+	
+	btDispatcher *dispatcher = mWorld->getDispatcher();
+	int count = dispatcher->getNumManifolds();
+	for (int i = 0; i < count; i++) {
+		const btPersistentManifold *manifold = dispatcher->getManifoldByIndexInternal(i);
+		
+		// If there are no contacts, then do not attempt to try to look for a collision.
+		// Manifolds are generated based on pairs, not just when a contact happens.
+		// They exist even when contact doesn't happen.
+		int pointCount = manifold->getNumContacts();
+		if (pointCount == 0)
+			continue;
+		
+		const btCollisionObject *body0 = manifold->getBody0();
+		const btCollisionObject *body1 = manifold->getBody1();
+		
+		bool found = false;
+		for (PhysicsPair &pair : mPairs) {
+			if ((pair.body0 == body0 && pair.body1 == body1) || (pair.body0 == body1 && pair.body1 == body0)) {
+				// 2
+				// This collision has existed already, so just update the frame number to say that it is still
+				// a collision in progress.
+				pair.frameNumber = mPhysicsFrame;
+				found = true;
+				break;
 			}
 		}
-
-		// 3
-		// http://stackoverflow.com/questions/8628951/remove-elements-of-a-vector-inside-the-loop/8629366#8629366
-		mPairs.erase(std::remove_if(mPairs.begin(), mPairs.end(), [this](const PhysicsPair &pair) {
-			return pair.frameNumber != this->getPhysicsFrame();
-		}), mPairs.end());
+		
+		if (!found) {
+			// 1
+			// Welp, the collision wasn't found, but it exists, so therefore it must be new!
+			mPairs.push_back({body0, body1, mPhysicsFrame});
+			
+			// Calculate average impact force.
+			float impulseAverage = 0.0f;
+			int appliedCount = 0;
+			for (int j = 0; j < pointCount; j++) {
+				const btManifoldPoint &point = manifold->getContactPoint(j);
+				if (point.getLifeTime() == 0) {
+					impulseAverage += point.getAppliedImpulse();
+					appliedCount++;
+				}
+			}
+			
+			// Note: we do not have to check for divide by zero, because
+			// we are guarenteeing at least one point when it adds a contact point!
+			impulseAverage /= appliedCount;
+			
+			// call callback to Unity, to notify it that we got a start callback.
+			mOnCollisionCallback(body0->getUserPointer(), body1->getUserPointer(), impulseAverage);
+		}
 	}
+	
+	// 3
+	// http://stackoverflow.com/questions/8628951/remove-elements-of-a-vector-inside-the-loop/8629366#8629366
+	mPairs.erase(std::remove_if(mPairs.begin(), mPairs.end(), [this](const PhysicsPair &pair) {
+		// Being the previous frame means that it no longer exists. Thus this returns true
+		// if the collision has ended.
+		return pair.frameNumber != this->getPhysicsFrame();
+	}), mPairs.end());
 }
 
 void PhysicsEngine::setWorldGravity(const btVector3 &gravity) {
