@@ -82,6 +82,10 @@ set (BULLETPLUGIN_SRC
 	src/physicsSphere.h
 	src/physicsSphere_api.cpp
 	src/physicsSphere_api.h
+	src/physicsTrigger.cpp
+	src/physicsTrigger.h
+	src/physicsTrigger_api.cpp
+	src/physicsTrigger_api.h
 	src/pluginAPI.h
 	src/util.cpp
 	src/util.h
