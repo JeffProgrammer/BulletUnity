@@ -150,8 +150,8 @@ void PhysicsEngine::handleCollisionCallbacks(float dt) {
 		// If one of these collision shapes is a trigger, stop it here.
 		// triggers handle their own enter / exit alogo directly in
 		// the trigger notification system.
-		if (body0->getCollisionFlags() == btCollisionObject::CF_NO_CONTACT_RESPONSE || 
-			body1->getCollisionFlags() == btCollisionObject::CF_NO_CONTACT_RESPONSE)
+		if (body0->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE || 
+			body1->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE)
 			continue;
 		
 		bool found = false;
