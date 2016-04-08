@@ -25,7 +25,12 @@ bool PhysicsRigidBody::isColliding() const {
 	int manifolds = mWorld->getDispatcher()->getNumManifolds();
 	for (int i = 0; i < manifolds; i++) {
 		auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
-		if (manifold->getBody0() == mActor || manifold->getBody1() == mActor)
+		auto body0 = manifold->getBody0();
+		auto body1 = manifold->getBody1();
+		// if one of the objects is a trigger, bail.
+		if (body0->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE || body1->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE)
+			continue;
+		if (body0 == mActor || body1 == mActor)
 			return true;
 	}
 	return false;
@@ -39,6 +44,9 @@ bool PhysicsRigidBody::isCollidingWith(const PhysicsBody *obj) const {
 		auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
 		auto body0 = manifold->getBody0();
 		auto body1 = manifold->getBody1();
+		if (body0->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE || 
+			body1->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE)
+			continue;
 		if ((body0 == mActor && body1 == otherCollider) ||
 			 (body1 == mActor && body0 == otherCollider))
 			return true;
@@ -57,6 +65,10 @@ bool PhysicsRigidBody::getCollisionNormal(btVector3 &toiVelocity, btVector3 &nor
 		auto manifold = mWorld->getDispatcher()->getManifoldByIndexInternal(i);
 		auto body0 = manifold->getBody0();
 		auto body1 = manifold->getBody1();
+
+		// if one of the objects is a trigger, bail.
+		if (body0->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE || body1->getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE)
+			continue;
 
 		if (body0 == mActor || body1 == mActor) {
 			int count = manifold->getNumContacts();
