@@ -5,14 +5,14 @@
 #ifndef _BULLETPLUGIN_PHYSICSTRIGGER_H_
 #define _BULLETPLUGIN_PHYSICSTRIGGER_H_
 
-#include "physicsRigidBody.h"
+#include "physicsBody.h"
 
 enum TriggerType {
 	BOX_TRIGGER,
 	SPHERE_TRIGGER
 };
 
-class PhysicsTrigger : public PhysicsRigidBody {
+class PhysicsTrigger : public PhysicsBody {
 public:
 	PhysicsTrigger(int triggerType);
 

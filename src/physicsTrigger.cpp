@@ -8,7 +8,7 @@
 #include "physicsBox.h"
 #include "physicsEngine.h"
 
-PhysicsTrigger::PhysicsTrigger(int triggerType) : PhysicsRigidBody() {
+PhysicsTrigger::PhysicsTrigger(int triggerType) : PhysicsBody() {
 	if (triggerType == BOX_TRIGGER)
 		mType = BOX_TRIGGER;
 	else
