@@ -171,21 +171,8 @@ void PhysicsEngine::handleCollisionCallbacks(float dt) {
 			// Welp, the collision wasn't found, but it exists, so therefore it must be new!
 			mPairs.push_back({body0, body1, mPhysicsFrame});
 			
-			// Calculate average impact force.
-			float impulseAverage = 0.0f;
-			int appliedCount = 0;
-			for (int j = 0; j < pointCount; j++) {
-				const btManifoldPoint &point = manifold->getContactPoint(j);
-				impulseAverage += point.getAppliedImpulse();
-				appliedCount++;
-			}
-			
-			// Note: we do not have to check for divide by zero, because
-			// we are guarenteeing at least one point when it adds a contact point!
-			impulseAverage /= appliedCount;
-			
 			// call callback to Unity, to notify it that we got a start callback.
-			mOnCollisionCallback(body0->getUserPointer(), body1->getUserPointer(), impulseAverage);
+			mOnCollisionCallback(body0->getUserPointer(), body1->getUserPointer());
 		}
 	}
 	
