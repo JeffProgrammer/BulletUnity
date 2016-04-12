@@ -73,6 +73,12 @@ float PhysicsTrigger::getRadius() const {
 	return 0.0f;
 }
 
+void PhysicsTrigger::removeBody(PhysicsBody *body) {
+	auto pos = std::find(mBodies.begin(), mBodies.end(), body);
+	if (pos != mBodies.end())
+		mBodies.erase(pos);
+}
+
 void PhysicsTrigger::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 	// Note: if RTII becomes to slow here, we can implement a custom integer
 	// based solution so that it is blazingly fast.
@@ -82,7 +88,11 @@ void PhysicsTrigger::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 
 	auto otherShape = static_cast<PhysicsRigidBody*>(isBody0 ? info.body1 : info.body0);
 
-	// issue trigger event so that we can check if we've entered the trigger,
-	// and act upon it.
-	static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mOnEnterTriggerCallback(physTrigger, otherShape);
+	// make sure that it isn't in the bod list. If it is, don't send a callback
+	if (std::find(mBodies.begin(), mBodies.end(), otherShape) == mBodies.end()) {
+		// issue trigger event so that we can check if we've entered the trigger,
+		// and act upon it.
+		static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mOnEnterTriggerCallback(physTrigger, otherShape);
+		mBodies.push_back(otherShape);
+	}
 }

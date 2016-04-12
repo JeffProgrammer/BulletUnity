@@ -5,6 +5,7 @@
 #ifndef _BULLETPLUGIN_PHYSICSTRIGGER_H_
 #define _BULLETPLUGIN_PHYSICSTRIGGER_H_
 
+#include <vector>
 #include "physicsBody.h"
 
 enum TriggerType {
@@ -43,6 +44,13 @@ public:
 	 */
 	float getRadius() const;
 
+	/**
+	 * Remove a physics body from the list. This means that the collision has
+	 * stopped and we can parepare for the next event for the body object.
+	 * @param body The physics body that has stopped colliding with the trigger.
+	 */
+	void removeBody(PhysicsBody *body);
+
 	virtual void notifyContact(ContactCallbackInfo &info, bool isBody0) override;
 
 private:
@@ -55,6 +63,11 @@ private:
 	 * The type of trigger.
 	 */
 	TriggerType mType;
+
+	/**
+	 * Bodies that are colliding with the trigger.
+	 */
+	std::vector<PhysicsBody*> mBodies;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSTRIGGER_H_

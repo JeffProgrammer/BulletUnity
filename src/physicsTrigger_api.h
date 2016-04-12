@@ -21,6 +21,15 @@ extern "C" {
 	 * @param [IN] trigger The physics trigger instance pointer.
 	 */
 	PLUGIN_API void physics_trigger_destroy(void *trigger);
+
+	/**
+	 * Notifys the trigger that the object has left the trigger.
+	 * This will allow us to send another onEnterTrigger callback whenever it 
+	 * is ready.
+	 * @param [IN] trigger The physics trigger instance pointer.
+	 * @param [IN] object The physics object that collided with the object.
+	 */
+	PLUGIN_API void physics_trigger_remove_body(void *trigger, void *object);
 	
 	/**
 	 * Sets the extent of the physics trigger box shape.

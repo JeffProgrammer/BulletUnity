@@ -17,6 +17,10 @@ extern "C" {
 		trig = nullptr;
 	}
 	
+	void physics_trigger_remove_body(void *trigger, void *object) {
+		static_cast<PhysicsTrigger*>(trigger)->removeBody(static_cast<PhysicsBody*>(object));
+	}
+
 	void physics_trigger_set_half_extents(void *trigger, float *halfExtents) {
 		static_cast<PhysicsTrigger*>(trigger)->setHalfExtents(Marshal::toVector(halfExtents));
 	}
