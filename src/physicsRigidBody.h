@@ -75,6 +75,18 @@ public:
 	 * @return The angular velocity.
 	 */
 	btVector3 getAngVelocity() const;
+
+	/**
+	 * Sets the mass on the rigid body.
+	 * @param mass The mass of the rigid body.
+	 */
+	void setMass(float mass);
+
+	/**
+	 * Gets the mass of the rigid body.
+	 * @return The mass of the rigid body.
+	 */
+	float getMass() const;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_H_

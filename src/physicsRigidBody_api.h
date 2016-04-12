@@ -87,6 +87,20 @@ extern "C" {
 	 * @param [OUT] vel The angular velocity of the body.
 	 */
 	PLUGIN_API void physics_rigid_body_get_ang_velocity(void *actor, float *vel);
+
+	/**
+	 * Gets the mass of the rigid body.
+	 * @param [IN] actor The physics body instance pointer.
+	 * @return the mass of the rigid body.
+	 */
+	PLUGIN_API float physics_rigid_body_get_mass(void *actor);
+
+	/**
+	 * Sets the mass of the rigid body.
+	 * @param [IN] actor The physics body instance pointer.
+	 * @param [IN] mass The mass of the rigid body.
+	 */
+	PLUGIN_API void physics_rigid_body_set_mass(void *actor, float mass);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_API_H_

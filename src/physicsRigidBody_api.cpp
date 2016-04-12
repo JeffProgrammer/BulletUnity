@@ -55,4 +55,12 @@ extern "C" {
 		btVector3 angVelocity = static_cast<PhysicsRigidBody*>(actor)->getAngVelocity();
 		Marshal::toArray(angVelocity, vel);
 	}
+
+	float physics_rigid_body_get_mass(void *actor) {
+		return static_cast<PhysicsRigidBody*>(actor)->getMass();
+	}
+
+	void physics_rigid_body_set_mass(void *actor, float mass) {
+		static_cast<PhysicsRigidBody*>(actor)->setMass(mass);
+	}
 }

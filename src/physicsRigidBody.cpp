@@ -112,3 +112,17 @@ btVector3 PhysicsRigidBody::getLinVelocity() const {
 btVector3 PhysicsRigidBody::getAngVelocity() const {
 	return mActor->getAngularVelocity();
 }
+
+void PhysicsRigidBody::setMass(float mass) {
+	btVector3 inertia;
+	mActor->getCollisionShape()->calculateLocalInertia(mass, inertia);
+	mActor->setMassProps(mass, inertia);
+}
+
+float PhysicsRigidBody::getMass() const {
+	// Edge case: check for divide by 0
+	float inv = mActor->getInvMass();
+	if (inv == 0.0f)
+		return 0.0f;
+	return 1.0f / inv;
+}
