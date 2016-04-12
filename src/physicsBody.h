@@ -73,6 +73,9 @@ public:
 	 */
 	float getRollingFriction() const;
 
+	void getWorldBox(btVector3 &min, btVector3 &max);
+
+
 	/**
 	 * Gets the rigid body pointer for the body.
 	 * @return the rigid body actor.

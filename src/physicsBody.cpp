@@ -64,6 +64,10 @@ float PhysicsBody::getRollingFriction() const {
 	return mRollingFriction;
 }
 
+void PhysicsBody::getWorldBox(btVector3 &min, btVector3 &max) {
+	mActor->getCollisionShape()->getAabb(mActor->getWorldTransform(), min, max);
+}
+
 bool PhysicsBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 	return true;
 }

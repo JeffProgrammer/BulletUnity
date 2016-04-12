@@ -38,6 +38,13 @@ extern "C" {
 	PLUGIN_API void physics_body_get_rotation(void *actor, float *rotation);
 
 	/**
+	 * Gets the world box of the physics body.
+	 * @param [IN]  actor The physics body instance pointer.
+	 * @param [OUT] box The world box: xMin yMin zMin xMax yMax zMax
+	 */
+	PLUGIN_API void physics_body_get_world_box(void *actor, float *box);
+
+	/**
 	 * Sets the restitution value of the physics body.
 	 * @param [IN] actor The physics body instance pointer.
 	 * @param [IN] restitution The amount of restitution to keep during bounces.

@@ -24,6 +24,12 @@ extern "C" {
 		Marshal::toArray(rot, rotation);
 	}
 
+	void physics_body_get_world_box(void *actor, float *box) {
+		btVector3 min, max;
+		static_cast<PhysicsBody*>(actor)->getWorldBox(min, max);
+		Marshal::toArray(min, max, box);
+	}
+
 	void physics_body_set_restitution(void *actor, float restitution) {
 		static_cast<PhysicsBody*>(actor)->setRestitution(restitution);
 	}
