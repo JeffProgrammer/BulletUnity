@@ -44,13 +44,6 @@ public:
 	 */
 	float getRadius() const;
 
-	/**
-	 * Remove a physics body from the list. This means that the collision has
-	 * stopped and we can parepare for the next event for the body object.
-	 * @param body The physics body that has stopped colliding with the trigger.
-	 */
-	void removeBody(PhysicsBody *body);
-
 	virtual void notifyContact(ContactCallbackInfo &info, bool isBody0) override;
 
 	virtual void endContact(PhysicsBody *collider) override;

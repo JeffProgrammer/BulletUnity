@@ -73,10 +73,6 @@ float PhysicsTrigger::getRadius() const {
 	return 0.0f;
 }
 
-void PhysicsTrigger::removeBody(PhysicsBody *body) {
-
-}
-
 void PhysicsTrigger::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 	// Note: if RTII becomes to slow here, we can implement a custom integer
 	// based solution so that it is blazingly fast.
