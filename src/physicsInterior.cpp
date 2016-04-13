@@ -31,7 +31,7 @@ void PhysicsInterior::addMesh(float *pointArray, unsigned int pointCount, int *m
 	}
 
 	auto shape = new btScaledBvhTriangleMeshShape(new btBvhTriangleMeshShape(mesh, true, true), btVector3(1.0f, 1.0f, 1.0f));
-	shape->setMargin(0.1f);
+	shape->setMargin(0.001f);
 
 	btTransform transform;
 	transform.setIdentity();

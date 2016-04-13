@@ -18,7 +18,7 @@ void PhysicsBox::addActor() {
 	//Need this otherwise forces won't work!
 	btVector3 fallInertia = btVector3(0.f, 0.f, 0.f);
 	shape->calculateLocalInertia(1.0f, fallInertia); // TODO: expose mass to C linkage API
-	shape->setMargin(0.01f);
+	shape->setMargin(0.001f);
 
 	btTransform transform;
 	transform.setIdentity();
