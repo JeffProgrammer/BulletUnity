@@ -53,6 +53,8 @@ public:
 
 	virtual void notifyContact(ContactCallbackInfo &info, bool isBody0) override;
 
+	virtual void endContact(PhysicsBody *collider) override;
+
 private:
 	/**
 	 * Creates the rigid body actor for the box.

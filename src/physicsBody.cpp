@@ -75,3 +75,7 @@ bool PhysicsBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 void PhysicsBody::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 
 }
+
+void PhysicsBody::endContact(PhysicsBody *collider) {
+
+}

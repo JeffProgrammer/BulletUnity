@@ -84,6 +84,23 @@ void contactProcessedCallback(btManifoldPoint &cp, const btCollisionObject *colO
 		body1->notifyContact(info, false);
 }
 
+void contactEndedCallback(btPersistentManifold* const &manifold) {
+	PhysicsBody *body0 = static_cast<PhysicsBody*>(manifold->getBody0()->getUserPointer());
+	PhysicsBody *body1 = static_cast<PhysicsBody*>(manifold->getBody1()->getUserPointer());
+
+	if (body0 == nullptr) {
+		unitylogf("body0 is nullptr!");
+		return;
+	}
+	if (body1 == nullptr) {
+		unitylogf("body1 is nullptr!");
+		return;
+	}
+
+	body0->endContact(body1);
+	body1->endContact(body0);
+}
+
 PhysicsEngine::PhysicsEngine() {
 	mMaxSubSteps = 4;
 	mPhysicsFrame = 0;
@@ -106,6 +123,7 @@ PhysicsEngine::PhysicsEngine() {
 
 	gContactAddedCallback = contactAddedCallback;
 	gContactProcessedCallback = contactProcessedCallback;
+	gContactEndedCallback = contactEndedCallback;
 }
 
 PhysicsEngine::~PhysicsEngine() {

@@ -96,6 +96,8 @@ public:
 
 	virtual void notifyContact(ContactCallbackInfo &info, bool isBody0);
 
+	virtual void endContact(PhysicsBody *collider);
+
 protected:
 	/**
 	 * Holds the rigid body pointer for the body.
