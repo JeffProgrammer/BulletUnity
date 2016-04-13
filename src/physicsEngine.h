@@ -98,6 +98,12 @@ public:
 	void setOnEnterTriggerCallback(UNITY_ON_ENTER_TRIGGER_CALLBACK cb);
 
 	/**
+	 * Sets the callback for leaving a trigger event within Unity.
+	 * @param cb The function pinter to callback to.
+	 */
+	void setOnLeaveTriggerCallback(UNITY_ON_LEAVE_TRIGGER_CALLBACK cb);
+
+	/**
 	 * Casts a ray between two vectors to see if we have a hit.
 	 * @param [IN]  from The start vector of the raycast.
 	 * @param [IN]  to The end vector of the raycast.
@@ -186,6 +192,12 @@ public:
 	 * collision occurs in bullet physics.
 	 */
 	UNITY_ON_ENTER_TRIGGER_CALLBACK mOnEnterTriggerCallback;
+
+	/**
+	 * This holds the function pointer for whenever a trigger and object
+	 * stop colliding in bullet physics.
+	 */
+	UNITY_ON_LEAVE_TRIGGER_CALLBACK mOnLeaveTriggerCallback;
 
 	UNITY_DEBUGLOG_CALLBACK mDebugCallback;
 };

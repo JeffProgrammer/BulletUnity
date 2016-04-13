@@ -226,6 +226,10 @@ void PhysicsEngine::setOnEnterTriggerCallback(UNITY_ON_ENTER_TRIGGER_CALLBACK cb
 	mOnEnterTriggerCallback = cb;
 }
 
+void PhysicsEngine::setOnLeaveTriggerCallback(UNITY_ON_LEAVE_TRIGGER_CALLBACK cb) {
+	mOnLeaveTriggerCallback = cb;
+}
+
 bool PhysicsEngine::rayCast(const btVector3 &from, const btVector3 &to, PhysicsBody *&body, btVector3 &pos, btVector3 &normal) const {
 	btCollisionWorld::ClosestRayResultCallback resultCallback(from, to);
 	mWorld->rayTest(from, to, resultCallback);

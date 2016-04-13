@@ -46,6 +46,10 @@ extern "C" {
 		static_cast<PhysicsEngine*>(physicsEngine)->setOnEnterTriggerCallback(cb);
 	}
 
+	void physics_engine_set_on_leave_trigger_callback(void *physicsEngine, UNITY_ON_LEAVE_TRIGGER_CALLBACK cb) {
+		static_cast<PhysicsEngine*>(physicsEngine)->setOnLeaveTriggerCallback(cb);
+	}
+
 	bool physics_engine_raycast(void *physicsEngine, float *from, float *to, void *physicsBody, float *pos, float *normal) {
 		btVector3 start = Marshal::toVector(from);
 		btVector3 end = Marshal::toVector(to);

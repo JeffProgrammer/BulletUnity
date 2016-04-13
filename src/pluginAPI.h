@@ -18,6 +18,8 @@ typedef void(*UNITY_ON_COLLISION_CALLBACK)(void *obj0, void *obj1);
 
 typedef void(*UNITY_ON_ENTER_TRIGGER_CALLBACK)(void *trigger, void *obj);
 
+typedef void(*UNITY_ON_LEAVE_TRIGGER_CALLBACK)(void *trigger, void *obj);
+
 typedef void(*UNITY_DEBUGLOG_CALLBACK)(const char *str);
 
 static UNITY_DEBUGLOG_CALLBACK unityDebugLog;

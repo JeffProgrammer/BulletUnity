@@ -74,9 +74,7 @@ float PhysicsTrigger::getRadius() const {
 }
 
 void PhysicsTrigger::removeBody(PhysicsBody *body) {
-	auto pos = std::find(mBodies.begin(), mBodies.end(), body);
-	if (pos != mBodies.end())
-		mBodies.erase(pos);
+
 }
 
 void PhysicsTrigger::notifyContact(ContactCallbackInfo &info, bool isBody0) {
@@ -94,5 +92,15 @@ void PhysicsTrigger::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 		// and act upon it.
 		static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mOnEnterTriggerCallback(physTrigger, otherShape);
 		mBodies.push_back(otherShape);
+	}
+}
+
+void PhysicsTrigger::endContact(PhysicsBody *collider) {
+	// remove body
+	auto pos = std::find(mBodies.begin(), mBodies.end(), collider);
+	if (pos != mBodies.end()) {
+		// issue event
+		static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mOnLeaveTriggerCallback(this, collider);
+		mBodies.erase(pos);
 	}
 }

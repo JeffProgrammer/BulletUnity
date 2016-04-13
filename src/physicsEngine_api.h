@@ -79,6 +79,14 @@ extern "C" {
 	PLUGIN_API void physics_engine_set_on_enter_trigger_callback(void *physicsEngine, UNITY_ON_ENTER_TRIGGER_CALLBACK cb);
 
 	/**
+	 * Adds a physics callback function pointer to the physics engine for
+	 * collision trigger leave detection.
+	 * @param [IN] physicsEngine The physics engine instance pointer.
+	 * @param [IN] cb The callback function.
+	 */
+	PLUGIN_API void physics_engine_set_on_leave_trigger_callback(void *physicsEngine, UNITY_ON_LEAVE_TRIGGER_CALLBACK cb);
+
+	/**
 	 * Does a raycast on the physics engine from from to point to.
 	 * @param [IN]  physicsEngine The physics engine instance pointer.
 	 * @param [IN]  from The start vector of the raycast.
