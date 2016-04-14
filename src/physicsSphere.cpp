@@ -52,7 +52,8 @@ float PhysicsSphere::getRadius() const {
 }
 
 bool PhysicsSphere::modifyContact(ContactCallbackInfo &info, bool isBody0) {
-	// TODO callback to Unity for material properties.
+	if (!PhysicsRigidBody::modifyContact(info, isBody0))
+		return false;
 	return true;
 }
 

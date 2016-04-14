@@ -38,6 +38,10 @@ extern "C" {
 		static_cast<PhysicsEngine*>(physicsEngine)->setPhysicsUpdateCallback(cb);
 	}
 
+	void physics_engine_set_material_callback(void *physicsEngine, UNITY_MATERIAL_CALLBACK cb) {
+		static_cast<PhysicsEngine*>(physicsEngine)->setMaterialCallbcak(cb);
+	}
+
 	void physics_engine_set_on_collision_callback(void *physicsEngine, UNITY_ON_COLLISION_CALLBACK cb) {
 		static_cast<PhysicsEngine*>(physicsEngine)->setOnCollisionCallback(cb);
 	}

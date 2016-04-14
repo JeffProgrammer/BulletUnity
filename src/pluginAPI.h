@@ -16,6 +16,8 @@ typedef void(*UNITY_TICK_CALLBACK)(float dt);
 
 typedef void(*UNITY_ON_COLLISION_CALLBACK)(void *obj0, void *obj1);
 
+typedef void(*UNITY_MATERIAL_CALLBACK)(int material, float &friction, float &restitution);
+
 typedef void(*UNITY_ON_ENTER_TRIGGER_CALLBACK)(void *trigger, void *obj);
 
 typedef void(*UNITY_ON_LEAVE_TRIGGER_CALLBACK)(void *trigger, void *obj);

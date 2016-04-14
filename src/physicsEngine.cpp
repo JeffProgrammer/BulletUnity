@@ -218,6 +218,10 @@ void PhysicsEngine::setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb) {
 	mPhysicsTickCallback = cb;
 }
 
+void PhysicsEngine::setMaterialCallbcak(UNITY_MATERIAL_CALLBACK cb) {
+	mMaterialCallback = cb;
+}
+
 void PhysicsEngine::setOnCollisionCallback(UNITY_ON_COLLISION_CALLBACK cb) {
 	mOnCollisionCallback = cb;
 }

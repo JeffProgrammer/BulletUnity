@@ -85,6 +85,8 @@ public:
 	 */
 	void setPhysicsUpdateCallback(UNITY_TICK_CALLBACK cb);
 
+	void setMaterialCallbcak(UNITY_MATERIAL_CALLBACK cb);
+
 	/**
 	 * Sets the callback for on collision events within Unity.
 	 * @param cb The function pointer to callback to.
@@ -181,6 +183,11 @@ public:
 	 * callback in Unity.
 	 */
 	UNITY_TICK_CALLBACK mPhysicsTickCallback;
+
+	/**
+	 *
+	 */
+	UNITY_MATERIAL_CALLBACK mMaterialCallback;
 
 	/**
 	 * This holds the function pointer to call the on collision callback in Unity.

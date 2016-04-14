@@ -4,6 +4,7 @@
 
 #include "physicsRigidBody.h"
 #include "physicsEngine.h"
+#include "physicsInterior.h"
 
 PhysicsRigidBody::PhysicsRigidBody() : PhysicsBody() {
 	
@@ -125,4 +126,32 @@ float PhysicsRigidBody::getMass() const {
 	if (inv == 0.0f)
 		return 0.0f;
 	return 1.0f / inv;
+}
+
+bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
+	//The interior with which we collided
+	PhysicsInterior *inter = dynamic_cast<PhysicsInterior *>(isBody0 ? info.body1 : info.body0);
+	if (inter == nullptr)
+		return true;
+
+	// set impact velocity equal to our velocity.
+	info.point.m_impactVelocity = getLinVelocity();
+
+	//Friction is relative to the slope of the incline
+	btVector3 up = getRigidBody()->getGravity() * -1.0f;
+	float wallDot = info.point.m_normalWorldOnB.dot(up);
+	float friction = (1.0f + wallDot) / 2.0f;
+
+	// get friction/restitution modified value by callback. this is for per friction materials.
+	// TODO: send the material instead of 0.
+	float cbFriction, cbRestitution;
+	static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mMaterialCallback(0, cbFriction, cbRestitution);
+	friction *= cbFriction;
+
+	unitylogf("friction: %f restitution: %f\n", cbFriction, cbRestitution);
+
+	info.point.m_combinedFriction *= friction;
+	info.point.m_combinedRollingFriction *= friction;
+	info.point.m_combinedRestitution *= cbRestitution;
+	return true;
 }

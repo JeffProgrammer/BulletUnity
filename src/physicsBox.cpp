@@ -53,7 +53,8 @@ btVector3 PhysicsBox::getExtents() const {
 }
 
 bool PhysicsBox::modifyContact(ContactCallbackInfo &info, bool isBody0) {
-	// TODO callback to Unity for material properties.
+	if (!PhysicsRigidBody::modifyContact(info, isBody0))
+		return false;
 	return true;
 }
 

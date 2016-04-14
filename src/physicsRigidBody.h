@@ -87,6 +87,8 @@ public:
 	 * @return The mass of the rigid body.
 	 */
 	float getMass() const;
+
+	virtual bool modifyContact(ContactCallbackInfo &info, bool isBody0) override;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_H_

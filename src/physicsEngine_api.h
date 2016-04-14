@@ -63,6 +63,11 @@ extern "C" {
 	PLUGIN_API void physics_engine_set_tick_callback(void *physicsEngine, UNITY_TICK_CALLBACK cb);
 
 	/**
+	 *
+	 */
+	PLUGIN_API void physics_engine_set_material_callback(void *physicsEngine, UNITY_MATERIAL_CALLBACK cb);
+
+	/**
 	 * Adds a physics callback function pointer to the physics engine for a
 	 * collision callback mechanism.
 	 * @param [IN] physicsEngine The physics engine instance pointer.
