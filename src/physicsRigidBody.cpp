@@ -134,6 +134,10 @@ bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 	if (inter == nullptr)
 		return true;
 
+	// grab material
+	int index = isBody0 ? info.index1 : info.index0;
+	int material = inter->getTriangleInfo(index).materialID;
+
 	// set impact velocity equal to our velocity.
 	info.point.m_impactVelocity = getLinVelocity();
 
@@ -143,9 +147,8 @@ bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 	float friction = (1.0f + wallDot) / 2.0f;
 
 	// get friction/restitution modified value by callback. this is for per friction materials.
-	// TODO: send the material instead of 0.
 	float cbFriction, cbRestitution;
-	static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mMaterialCallback(0, cbFriction, cbRestitution);
+	static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mMaterialCallback(material, cbFriction, cbRestitution);
 	friction *= cbFriction;
 
 	unitylogf("friction: %f restitution: %f\n", cbFriction, cbRestitution);
