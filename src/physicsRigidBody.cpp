@@ -148,10 +148,10 @@ bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 
 	// get friction/restitution modified value by callback. this is for per friction materials.
 	float cbFriction, cbRestitution;
-	static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mMaterialCallback(material, cbFriction, cbRestitution);
+	static_cast<PhysicsEngine*>(mWorld->getWorldUserInfo())->mMaterialCallback(inter, material, cbFriction, cbRestitution);
 	friction *= cbFriction;
 
-	unitylogf("friction: %f restitution: %f\n", cbFriction, cbRestitution);
+	//unitylogf("friction: %f restitution: %f\n", cbFriction, cbRestitution);
 
 	info.point.m_combinedFriction *= friction;
 	info.point.m_combinedRollingFriction *= friction;

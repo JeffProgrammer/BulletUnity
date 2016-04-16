@@ -26,8 +26,8 @@ void PhysicsInterior::addMesh(float *pointArray, unsigned int pointCount, int *m
 		tri.vertex[0] = vertex0;
 		tri.vertex[1] = vertex1;
 		tri.vertex[2] = vertex2;
-		tri.materialID = materialArray[i];
-		mTriangleHashTable[i] = tri;
+		tri.materialID = materialArray[i/9]; // sneaky little thing
+		mTriangleHashTable[i/9] = tri;
 	}
 
 	auto shape = new btScaledBvhTriangleMeshShape(new btBvhTriangleMeshShape(mesh, true, true), btVector3(1.0f, 1.0f, 1.0f));
