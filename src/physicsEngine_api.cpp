@@ -23,6 +23,14 @@ extern "C" {
 		static_cast<PhysicsEngine*>(physicsEngine)->setWorldGravity(Marshal::toVector(gravity));
 	}
 
+	void physics_engine_set_simulation_speed(void *physicsEngine, float speed) {
+		static_cast<PhysicsEngine *>(physicsEngine)->setSimulationSpeed(speed);
+	}
+
+	float physics_engine_get_simulation_speed(void *physicsEngine) {
+		return static_cast<PhysicsEngine *>(physicsEngine)->getSimulationSpeed();
+	}
+
 	void physics_engine_get_gravity(void *physicsEngine, float *gravity) {
 		auto engine = static_cast<PhysicsEngine*>(physicsEngine);
 		btVector3 vec = engine->getWorldGravity();

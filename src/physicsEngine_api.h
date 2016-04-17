@@ -48,6 +48,20 @@ extern "C" {
 	PLUGIN_API void physics_engine_get_gravity(void *physicsEngine, float *gravity);
 
 	/**
+	 * Set the physics engine's simulation speed
+	 * @param [IN] physicsEngine The physics engine instance pointer.
+	 * @param [IN] speed A float containing the new speed
+	 */
+	PLUGIN_API void physics_engine_set_simulation_speed(void *physicsEngine, float speed);
+
+	/**
+	 * Get the physics engine's simulation speed
+	 * @param [IN]  physicsEngine The physics engine instance pointer.
+	 * @return The simulation speed
+	 */
+	PLUGIN_API float physics_engine_get_simulation_speed(void *physicsEngine);
+
+	/**
 	 * Adds a body into the physics engine.
 	 * @param [IN] physicsEngine The physics engine instance pointer.
 	 * @param [IN] physicsBody The physics body instance pointer.

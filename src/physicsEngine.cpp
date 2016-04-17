@@ -106,6 +106,7 @@ PhysicsEngine::PhysicsEngine() {
 	mPhysicsFrame = 0;
 	mRunning = true;
 	mWorldGravity = btVector3(0.0f, -20.0f, 0.0f);
+	mSimulationSpeed = 1.0f;
 
 	// create the physics dispatcher.
 	auto configuration = new btDefaultCollisionConfiguration();
@@ -135,7 +136,7 @@ void PhysicsEngine::simulate(const float &dt) {
 	if (mRunning) {
 		// Now, simulate the world so that the physics advances.
 		// engine runs on its own fixed update
-		mWorld->stepSimulation(dt, mMaxSubSteps);
+		mWorld->stepSimulation(dt * mSimulationSpeed, mMaxSubSteps);
 	}
 }
 

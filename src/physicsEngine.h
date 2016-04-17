@@ -73,6 +73,22 @@ public:
 	}
 
 	/**
+	 * Get the world's simulation speed
+	 * @return The simulation speed
+	 */
+	float getSimulationSpeed() const {
+		return mSimulationSpeed;
+	}
+
+	/**
+	 * Set the world's simulation speed
+	 * @param speed The new speed
+	 */
+	void setSimulationSpeed(const float &speed) {
+		mSimulationSpeed = speed;
+	}
+
+	/**
 	 * Adds a body object into the physics world.
 	 * @param body The physics body collision object.
 	 */
@@ -175,6 +191,11 @@ private:
 	std::vector<PhysicsPair> mPairs;
 
 	unsigned int mPhysicsFrame;
+
+	/**
+	 * Factor that all time steps are multiplied by
+	 */
+	float mSimulationSpeed;
 
 public:
 
