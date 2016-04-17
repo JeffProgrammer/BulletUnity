@@ -70,10 +70,6 @@ set (BULLETPLUGIN_SRC
 	src/physicsEngine.h
 	src/physicsEngine_api.cpp
 	src/physicsEngine_api.h
-	src/physicsInterior.cpp
-	src/physicsInterior.h
-	src/physicsInterior_api.cpp
-	src/physicsInterior_api.h
 	src/physicsRigidBody.cpp
 	src/physicsRigidBody.h
 	src/physicsRigidBody_api.cpp
@@ -82,6 +78,10 @@ set (BULLETPLUGIN_SRC
 	src/physicsSphere.h
 	src/physicsSphere_api.cpp
 	src/physicsSphere_api.h
+	src/physicsStaticShape.cpp
+	src/physicsStaticShape.h
+	src/physicsStaticShape_api.cpp
+	src/physicsStaticShape_api.h
 	src/physicsTrigger.cpp
 	src/physicsTrigger.h
 	src/physicsTrigger_api.cpp

@@ -7,7 +7,7 @@
 
 #include "pluginAPI.h"
 #include "physicsEngine.h"
-#include "physicsInterior.h"
+#include "physicsStaticShape.h"
 #include "physicsSphere.h"
 
 extern "C" {

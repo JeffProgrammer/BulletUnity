@@ -9,24 +9,24 @@
 #include "physicsBody.h"
 #include "util.h"
 
-class PhysicsInterior : public PhysicsBody {
+class PhysicsStaticShape : public PhysicsBody {
 public:
-	PhysicsInterior(float *pointArray, unsigned int pointCount, int *materialArray);
+	PhysicsStaticShape(float *pointArray, unsigned int pointCount, int *materialArray);
 
 	/**
-	 * Sets the scale of the interior in local space.
-	 * @param scale The scale vector for the interior.
+	 * Sets the scale of the static shape in local space.
+	 * @param scale The scale vector for the static shape.
 	 */
 	void setScale(const btVector3 &scale);
 
 	/**
-	 * Gets the interior's scale in local space.
-	 * @return the vector scale of the interior.
+	 * Gets the static shape's scale in local space.
+	 * @return the vector scale of the static shape.
 	 */
 	btVector3 getScale() const;
 
 	/**
-	 * Get a specific triangle from the interior.
+	 * Get a specific triangle from the static shape.
 	 * @ param index The triangle to get from the hash map.
 	 * @return The triangle data for the specific index.
 	 */
@@ -36,7 +36,7 @@ public:
 
 private:
 	/**
-	 * A hash table of triangles on the interior.
+	 * A hash table of triangles on the static shape.
 	 * int - The triangle index to lookup based on the bullet callback.
 	 * Triangle - A structure holding the per triangle data.
 	 */
@@ -44,7 +44,7 @@ private:
 
 
 	/**
-	 * Creates the collision mesh on the interior.
+	 * Creates the collision mesh on the static shape.
 	 * @param pointArray an array of floats holding the vertices for the mesh.
 	 *  Each triangle holes 3 vectors, and each vector contains 3 floats.
 	 * @param pointCount The amount of items within pointArray.

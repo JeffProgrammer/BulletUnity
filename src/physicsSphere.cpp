@@ -5,7 +5,7 @@
 #include <vector>
 #include "physicsSphere.h"
 #include "physicsEngine.h"
-#include "physicsInterior.h"
+#include "physicsStaticShape.h"
 
 PhysicsSphere::PhysicsSphere() : PhysicsRigidBody() {
 	mRadius = 0.5f;
@@ -59,9 +59,9 @@ bool PhysicsSphere::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 
 void PhysicsSphere::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 //	unitylogf("PhysicsSphere::notifyContact() start");
-	//The interior with which we collided
+	//The static shape with which we collided
 	// TODO: optimize dynamic_cast
-	PhysicsInterior *inter = dynamic_cast<PhysicsInterior*>(isBody0 ? info.body1 : info.body0);
+	PhysicsStaticShape *inter = dynamic_cast<PhysicsStaticShape*>(isBody0 ? info.body1 : info.body0);
 	if (inter == nullptr) {
 		//PhysicsSphere *sphere = dynamic_cast<PhysicsSphere *>(isBody0 ? info.body1 : info.body0);
 		//if (sphere != nullptr) {
@@ -84,11 +84,11 @@ void PhysicsSphere::notifyContact(ContactCallbackInfo &info, bool isBody0) {
 	//Easier access
 	int index = isBody0 ? info.index1 : info.index0;
 
-	//Get some information about the interior
+	//Get some information about the static shape
 	const Triangle &triangleInfo = inter->getTriangleInfo(index);
 	const btVector3 &collisionPoint = info.point.m_positionWorldOnB;
 
-	//Triangle info from the interior
+	//Triangle info from the static shape
 	const TriangleF &triangle = TriangleF(triangleInfo.vertex[0], triangleInfo.vertex[1], triangleInfo.vertex[2]);
 
 	//We need to remove points if this isn't an edge collision

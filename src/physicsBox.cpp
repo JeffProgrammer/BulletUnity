@@ -5,7 +5,7 @@
 #include <vector>
 #include "physicsBox.h"
 #include "physicsEngine.h"
-#include "physicsInterior.h"
+#include "physicsStaticShape.h"
 
 PhysicsBox::PhysicsBox() : PhysicsRigidBody() {
 	mHalfExtents = btVector3(0.5f, 0.5f, 0.5f);

@@ -6,7 +6,7 @@
 #include <vector>
 #include "physicsEngine.h"
 #include "physicsBody.h"
-#include "physicsInterior.h"
+#include "physicsStaticShape.h"
 #include "physicsSphere.h"
 
 /**

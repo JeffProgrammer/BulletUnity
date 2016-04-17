@@ -12,7 +12,7 @@
 #include "pluginAPI.h"
 #include "marshal.h"
 
-class PhysicsInterior;
+class PhysicsStaticShape;
 class PhysicsSphere;
 class PhysicsBody;
 

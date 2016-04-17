@@ -2,14 +2,14 @@
 // All rights reserved.
 //------------------------------------------------------------------------------
 
-#include "physicsInterior.h"
+#include "physicsStaticShape.h"
 
-PhysicsInterior::PhysicsInterior(float *pointArray, unsigned int pointCount, int *materialArray) : PhysicsBody() {
+PhysicsStaticShape::PhysicsStaticShape(float *pointArray, unsigned int pointCount, int *materialArray) : PhysicsBody() {
 	addMesh(pointArray, pointCount, materialArray);
 }
 
-void PhysicsInterior::addMesh(float *pointArray, unsigned int pointCount, int *materialArray) {
-	// oddly enough, static interiors still need rigid bodies.
+void PhysicsStaticShape::addMesh(float *pointArray, unsigned int pointCount, int *materialArray) {
+	// oddly enough, static static shapes still need rigid bodies.
 	// nice job, bullet.
 	auto mesh = new btTriangleMesh();
 
@@ -46,10 +46,10 @@ void PhysicsInterior::addMesh(float *pointArray, unsigned int pointCount, int *m
 	mActor->setCollisionFlags(mActor->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 }
 
-void PhysicsInterior::setScale(const btVector3 &scale) {
+void PhysicsStaticShape::setScale(const btVector3 &scale) {
 	static_cast<btScaledBvhTriangleMeshShape*>(mActor->getCollisionShape())->setLocalScaling(scale);
 }
 
-btVector3 PhysicsInterior::getScale() const {
+btVector3 PhysicsStaticShape::getScale() const {
 	return static_cast<btScaledBvhTriangleMeshShape*>(mActor->getCollisionShape())->getLocalScaling();
 }

@@ -4,7 +4,7 @@
 
 #include "physicsRigidBody.h"
 #include "physicsEngine.h"
-#include "physicsInterior.h"
+#include "physicsStaticShape.h"
 
 PhysicsRigidBody::PhysicsRigidBody() : PhysicsBody() {
 	
@@ -129,8 +129,8 @@ float PhysicsRigidBody::getMass() const {
 }
 
 bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
-	//The interior with which we collided
-	PhysicsInterior *inter = dynamic_cast<PhysicsInterior *>(isBody0 ? info.body1 : info.body0);
+	//The static shape with which we collided
+	PhysicsStaticShape *inter = dynamic_cast<PhysicsStaticShape *>(isBody0 ? info.body1 : info.body0);
 	if (inter == nullptr)
 		return true;
 
