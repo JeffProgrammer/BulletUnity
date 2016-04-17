@@ -142,7 +142,7 @@ bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 	info.point.m_impactVelocity = getLinVelocity();
 
 	//Friction is relative to the slope of the incline
-	btVector3 up = getRigidBody()->getGravity() * -1.0f;
+	btVector3 up = (getRigidBody()->getGravity() * -1.0f).normalize();
 	float wallDot = info.point.m_normalWorldOnB.dot(up);
 	float friction = (1.0f + wallDot) / 2.0f;
 
