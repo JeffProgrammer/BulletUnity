@@ -152,7 +152,11 @@ bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
 	//Friction is relative to the slope of the incline
 	btVector3 up = (getRigidBody()->getGravity() * -1.0f).normalize();
 	float wallDot = info.point.m_normalWorldOnB.dot(up);
-	float friction = (1.0f + wallDot) / 2.0f;
+	float friction;
+	if (wallDot == 0.0f)
+		friction = mWallFriction;
+	else
+		friction = (1.0f + wallDot) / 2.0f;
 
 	// get friction/restitution modified value by callback. this is for per friction materials.
 	float cbFriction, cbRestitution;
