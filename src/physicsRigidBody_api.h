@@ -101,6 +101,20 @@ extern "C" {
 	 * @param [IN] mass The mass of the rigid body.
 	 */
 	PLUGIN_API void physics_rigid_body_set_mass(void *actor, float mass);
+
+	/** 
+	 * Sets the wall friction of the rigid body.
+	 * @param [IN] actor The physics body instance pointer.
+	 * @param [IN] friction The amount of wall friction to apply to the actor.
+	 */
+	PLUGIN_API void physics_rigid_body_set_wall_friction(void *actor, float friction);
+
+	/** 
+	 * Gets the wall friction of the rigid body.
+	 * @param [IN] actor The physics body instance pointer.
+	 * @return The amount of wall friction on the actor.
+	 */
+	PLUGIN_API float physics_rigid_body_get_wall_friction(void *actor);
 }
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_API_H_

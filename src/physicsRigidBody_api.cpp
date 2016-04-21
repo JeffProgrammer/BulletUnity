@@ -63,4 +63,12 @@ extern "C" {
 	void physics_rigid_body_set_mass(void *actor, float mass) {
 		static_cast<PhysicsRigidBody*>(actor)->setMass(mass);
 	}
+
+	void physics_rigid_body_set_wall_friction(void *actor, float friction) {
+		static_cast<PhysicsRigidBody*>(actor)->setWallFriction(friction);
+	}
+
+	float physics_rigid_body_get_wall_friction(void *actor) {
+		return static_cast<PhysicsRigidBody*>(actor)->getWallFriction();
+	}
 }

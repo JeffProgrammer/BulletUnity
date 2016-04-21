@@ -88,7 +88,27 @@ public:
 	 */
 	float getMass() const;
 
+	/**
+	 * Sets the amount of wall friction on the rigid body.
+	 * @param friction The amount of wall friction.
+	 */
+	void setWallFriction(float friction);
+
+	/**
+	 * Gets the amount of wall friction on the rigid body.
+	 * @return The wall friction of the rigid body.
+	 */
+	float getWallFriction() const;
+
 	virtual bool modifyContact(ContactCallbackInfo &info, bool isBody0) override;
+
+protected:
+	/**
+	 * The amount of friction that is applied whenever the collision angle 
+	 * between the contact points is exactly 90 degrees.
+	 * @default 1.0f
+	 */
+	float mWallFriction;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSRIGIDBODY_H_

@@ -7,7 +7,7 @@
 #include "physicsStaticShape.h"
 
 PhysicsRigidBody::PhysicsRigidBody() : PhysicsBody() {
-	
+	mWallFriction = 1.0f;
 }
 
 void PhysicsRigidBody::addForce(const btVector3 &force, const btVector3 &origin) {
@@ -126,6 +126,14 @@ float PhysicsRigidBody::getMass() const {
 	if (inv == 0.0f)
 		return 0.0f;
 	return 1.0f / inv;
+}
+
+void PhysicsRigidBody::setWallFriction(float friction) {
+	mWallFriction = friction;
+}
+
+float PhysicsRigidBody::getWallFriction() const {
+	return mWallFriction;
 }
 
 bool PhysicsRigidBody::modifyContact(ContactCallbackInfo &info, bool isBody0) {
