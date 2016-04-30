@@ -9,6 +9,41 @@
 #include "util.h"
 
 class PhysicsKinematicShape : public PhysicsStaticShape {
+protected:
+	class KinematicMotionState : public btMotionState {
+	public:
+		KinematicMotionState() {
+			mTransform = btTransform::getIdentity();
+		}
+
+		/**
+		 * Called by the physics simulation step when grabbing the transform of
+		 * the kinematic actor.
+		 */
+		virtual void getWorldTransform(btTransform &worldTransform) const override {
+			worldTransform = mTransform;
+		}
+
+		/**
+		 * We do not want to be able to set the transform. We totally control it.
+		 */
+		virtual void setWorldTransform(const btTransform &transform) override { }
+
+		/**
+		 * Sets the position of the kinematic actor for the simulation frame.
+		 * @param vec The orientation of 
+		 */
+		void setPosition(const btVector3 &pos) {
+			mTransform.setOrigin(pos);
+		}
+
+		void setRotation(const btQuaternion &quat) {
+			mTransform.setRotation(quat);
+		}
+	protected:
+		btTransform mTransform;
+	};
+
 public:
 	PhysicsKinematicShape(float *pointArray, unsigned int pointCount, int *materialArray) : PhysicsStaticShape(pointArray, pointCount, materialArray) {}
 
@@ -22,6 +57,21 @@ public:
 	 *  table.
 	 */
 	virtual void addMesh(float *pointArray, unsigned int pointCount, int *materialArray) override;
+
+	virtual void setPosition(const btVector3 &pos) override;
+
+	virtual void setRotation(const btQuaternion &quat) override;
+
+	/**
+	 * Gets the position of the body in world space.
+	 */
+	virtual btVector3 getPosition() const override;
+
+	/**
+	 * Gets the rotation of the body in world space.
+	 * @return the rotation quaternion of the body.
+	 */
+	virtual btQuaternion getRotation() const override;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSKINEMATICSHAPE_H_

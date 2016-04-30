@@ -18,24 +18,24 @@ public:
 	 * Sets the position of the body in world space.
 	 * @param pos The position vector for the body.
 	 */
-	void setPosition(const btVector3 &pos);
+	virtual void setPosition(const btVector3 &pos);
 
 	/**
 	 * Sets the rotation of the body in world space.
 	 * @param rot The rotation quaternion for the body.
 	 */
-	void setRotation(const btQuaternion &rot);
+	virtual void setRotation(const btQuaternion &rot);
 
 	/**
 	 * Gets the position of the body in world space.
 	 */
-	btVector3 getPosition() const;
+	virtual btVector3 getPosition() const;
 
 	/**
 	 * Gets the rotation of the body in world space.
 	 * @return the rotation quaternion of the body.
 	 */
-	btQuaternion getRotation() const;
+	virtual btQuaternion getRotation() const;
 
 	/**
 	 * Sets the restitution of the physics body.

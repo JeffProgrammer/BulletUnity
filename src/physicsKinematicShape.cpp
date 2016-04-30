@@ -29,15 +29,29 @@ void PhysicsKinematicShape::addMesh(float *pointArray, unsigned int pointCount, 
 	auto shape = new btScaledBvhTriangleMeshShape(new btBvhTriangleMeshShape(mesh, true, true), btVector3(1.0f, 1.0f, 1.0f));
 	shape->setMargin(0.001f);
 
-	btTransform transform;
-	transform.setIdentity();
-
-	auto state = new btDefaultMotionState();
-	state->setWorldTransform(transform);
-
 	// Finally, set the actor.
-	mActor = new btRigidBody(0.0f, state, shape);
+	mActor = new btRigidBody(0.0f, new KinematicMotionState(), shape);
 	mActor->setRestitution(mRestitution);
 	mActor->setFriction(mFriction);
 	mActor->setCollisionFlags(mActor->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK | btCollisionObject::CF_KINEMATIC_OBJECT);
+}
+
+void PhysicsKinematicShape::setPosition(const btVector3 &pos) {
+	static_cast<KinematicMotionState*>(mActor->getMotionState())->setPosition(pos);
+}
+
+void PhysicsKinematicShape::setRotation(const btQuaternion &quat) {
+	static_cast<KinematicMotionState*>(mActor->getMotionState())->setRotation(quat);
+}
+
+btVector3 PhysicsKinematicShape::getPosition() const {
+	btTransform t;
+	static_cast<KinematicMotionState*>(mActor->getMotionState())->getWorldTransform(t);
+	return t.getOrigin();
+}
+
+btQuaternion PhysicsKinematicShape::getRotation() const {
+	btTransform t;
+	static_cast<KinematicMotionState*>(mActor->getMotionState())->getWorldTransform(t);
+	return t.getRotation();
 }
