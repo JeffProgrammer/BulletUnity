@@ -34,7 +34,7 @@ public:
 		return mTriangleHashTable[index];
 	}
 
-private:
+protected:
 	/**
 	 * A hash table of triangles on the static shape.
 	 * int - The triangle index to lookup based on the bullet callback.
@@ -52,7 +52,7 @@ private:
 	 *  triangle in the mesh. This will be used for material lookup in a hash
 	 *  table.
 	 */
-	void addMesh(float *pointArray, unsigned int pointCount, int *materialArray);
+	virtual void addMesh(float *pointArray, unsigned int pointCount, int *materialArray);
 };
 
 #endif // _BULLETPLUGIN_PHYSICSINTERIOR_H_

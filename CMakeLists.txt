@@ -70,6 +70,10 @@ set (BULLETPLUGIN_SRC
 	src/physicsEngine.h
 	src/physicsEngine_api.cpp
 	src/physicsEngine_api.h
+	src/physicsKinematicShape.cpp
+	src/physicsKinematicShape.h
+	src/physicsKinematicShape_api.cpp
+	src/physicsKinematicShape_api.h
 	src/physicsRigidBody.cpp
 	src/physicsRigidBody.h
 	src/physicsRigidBody_api.cpp
