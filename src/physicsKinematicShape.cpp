@@ -30,14 +30,18 @@ void PhysicsKinematicShape::addMesh(float *pointArray, unsigned int pointCount, 
 	shape->setMargin(0.001f);
 
 	// Finally, set the actor.
-	mActor = new btRigidBody(0.0f, new KinematicMotionState(), shape);
+	btMotionState *state = new KinematicMotionState();
+	mActor = new btRigidBody(0.0f, state, shape);
 	mActor->setRestitution(mRestitution);
 	mActor->setFriction(mFriction);
-	mActor->setCollisionFlags(mActor->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK | btCollisionObject::CF_KINEMATIC_OBJECT);
+	mActor->setCollisionFlags(btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK | btCollisionObject::CF_KINEMATIC_OBJECT);
 }
 
 void PhysicsKinematicShape::setPosition(const btVector3 &pos) {
 	static_cast<KinematicMotionState*>(mActor->getMotionState())->setPosition(pos);
+	btTransform t = mActor->getWorldTransform();
+	t.setOrigin(pos);
+	mActor->setWorldTransform(t);
 }
 
 void PhysicsKinematicShape::setRotation(const btQuaternion &quat) {

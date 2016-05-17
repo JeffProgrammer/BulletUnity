@@ -11,6 +11,8 @@
 
 class PhysicsStaticShape : public PhysicsBody {
 public:
+	PhysicsStaticShape() : PhysicsBody() {}
+	
 	PhysicsStaticShape(float *pointArray, unsigned int pointCount, int *materialArray);
 
 	/**
@@ -33,16 +35,8 @@ public:
 	inline const Triangle& getTriangleInfo(int index) {
 		return mTriangleHashTable[index];
 	}
-
-protected:
-	/**
-	 * A hash table of triangles on the static shape.
-	 * int - The triangle index to lookup based on the bullet callback.
-	 * Triangle - A structure holding the per triangle data.
-	 */
-	std::unordered_map<int, Triangle> mTriangleHashTable;
-
-
+	
+	
 	/**
 	 * Creates the collision mesh on the static shape.
 	 * @param pointArray an array of floats holding the vertices for the mesh.
@@ -53,6 +47,14 @@ protected:
 	 *  table.
 	 */
 	virtual void addMesh(float *pointArray, unsigned int pointCount, int *materialArray);
+
+protected:
+	/**
+	 * A hash table of triangles on the static shape.
+	 * int - The triangle index to lookup based on the bullet callback.
+	 * Triangle - A structure holding the per triangle data.
+	 */
+	std::unordered_map<int, Triangle> mTriangleHashTable;
 };
 
 #endif // _BULLETPLUGIN_PHYSICSINTERIOR_H_

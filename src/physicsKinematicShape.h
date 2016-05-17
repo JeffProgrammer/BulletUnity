@@ -27,7 +27,9 @@ protected:
 		/**
 		 * We do not want to be able to set the transform. We totally control it.
 		 */
-		virtual void setWorldTransform(const btTransform &transform) override { }
+		virtual void setWorldTransform(const btTransform &transform) override {
+		
+		}
 
 		/**
 		 * Sets the position of the kinematic actor for the simulation frame.
@@ -45,7 +47,9 @@ protected:
 	};
 
 public:
-	PhysicsKinematicShape(float *pointArray, unsigned int pointCount, int *materialArray) : PhysicsStaticShape(pointArray, pointCount, materialArray) {}
+	PhysicsKinematicShape(float *pointArray, unsigned int pointCount, int *materialArray) {
+		addMesh(pointArray, pointCount, materialArray);
+	}
 
 	/**
 	 * Creates the collision mesh on the static shape.
