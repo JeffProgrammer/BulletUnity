@@ -30,32 +30,32 @@ void PhysicsKinematicShape::addMesh(float *pointArray, unsigned int pointCount, 
 	shape->setMargin(0.001f);
 
 	// Finally, set the actor.
-	btMotionState *state = new KinematicMotionState();
-	mActor = new btRigidBody(0.0f, state, shape);
+	mActor = new btRigidBody(0.0f, NULL, shape);
 	mActor->setRestitution(mRestitution);
 	mActor->setFriction(mFriction);
 	mActor->setCollisionFlags(btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK | btCollisionObject::CF_KINEMATIC_OBJECT);
 }
 
 void PhysicsKinematicShape::setPosition(const btVector3 &pos) {
-	static_cast<KinematicMotionState*>(mActor->getMotionState())->setPosition(pos);
 	btTransform t = mActor->getWorldTransform();
 	t.setOrigin(pos);
 	mActor->setWorldTransform(t);
 }
 
 void PhysicsKinematicShape::setRotation(const btQuaternion &quat) {
-	static_cast<KinematicMotionState*>(mActor->getMotionState())->setRotation(quat);
+	btTransform t = mActor->getWorldTransform();
+	t.setRotation(quat);
+	mActor->setWorldTransform(t);
 }
 
 btVector3 PhysicsKinematicShape::getPosition() const {
 	btTransform t;
-	static_cast<KinematicMotionState*>(mActor->getMotionState())->getWorldTransform(t);
+	t = mActor->getWorldTransform();
 	return t.getOrigin();
 }
 
 btQuaternion PhysicsKinematicShape::getRotation() const {
 	btTransform t;
-	static_cast<KinematicMotionState*>(mActor->getMotionState())->getWorldTransform(t);
+	t = mActor->getWorldTransform();
 	return t.getRotation();
 }
