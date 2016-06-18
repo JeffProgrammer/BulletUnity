@@ -86,6 +86,10 @@ set (BULLETPLUGIN_SRC
 	src/physicsStaticShape.h
 	src/physicsStaticShape_api.cpp
 	src/physicsStaticShape_api.h
+	src/physicsTerrain.cpp
+	src/physicsTerrain.h
+	src/physicsTerrain_api.cpp
+	src/physicsTerrain_api.h
 	src/physicsTrigger.cpp
 	src/physicsTrigger.h
 	src/physicsTrigger_api.cpp
