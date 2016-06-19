@@ -16,6 +16,8 @@ PhysicsTerrain::PhysicsTerrain(unsigned int width, unsigned int length, float *d
 	btTransform transform;
 	transform.setIdentity();
 
+	shape->setMargin(0.01f);
+
 	auto state = new btDefaultMotionState();
 	state->setWorldTransform(transform);
 
